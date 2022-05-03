@@ -1,4 +1,4 @@
-export default {
-  flexDirection: 'row',
-  flexWrap: 'wrap',
+export default{
+    flexDirection:"row",
+    flexWrap:"wrap",
 };

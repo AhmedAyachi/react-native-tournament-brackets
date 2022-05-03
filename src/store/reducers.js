@@ -1,7 +1,7 @@
 // Utilities
-import { combineReducers } from 'redux';
+import {combineReducers} from "redux";
 
 // Slices
-import Auth from '../features/Auth/slice';
+import Auth from "../features/Auth/slice";
 
-export default combineReducers({ Auth });
+export default combineReducers({Auth});

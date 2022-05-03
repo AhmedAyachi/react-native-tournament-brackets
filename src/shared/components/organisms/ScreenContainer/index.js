@@ -3,15 +3,15 @@
 /* -------------------------------------------------------------------------- */
 
 // Packages
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 // UI lib components
-import { View } from 'react-native-ui-lib';
-import { SafeAreaView } from 'react-native';
+import {View} from "react-native-ui-lib";
+import {SafeAreaView} from "react-native";
 
 // Style
-import styles from './styles';
+import styles from "./styles";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Component                                 */
@@ -27,31 +27,31 @@ import styles from './styles';
  * content nodes as children
  * @todo Support tab var navigation if applicable
  */
-function ScreenContainer({ title, children }) {
-  /* ******************************** CONSTANTS ******************************* */
+function ScreenContainer({title, children}){
+    /* ******************************** CONSTANTS ******************************* */
 
-  /* ********************************** HOOKS ********************************* */
+    /* ********************************** HOOKS ********************************* */
 
-  /* ***************************** LOCAL VARIABLES **************************** */
+    /* ***************************** LOCAL VARIABLES **************************** */
 
-  /* ***************************** RENDER HELPERS ***************************** */
+    /* ***************************** RENDER HELPERS ***************************** */
 
-  /* ******************************** RENDERING ******************************* */
+    /* ******************************** RENDERING ******************************* */
 
-  return (
-    <SafeAreaView style={styles.boundaries}>
-      <View style={styles.layout}>{children}</View>
-    </SafeAreaView>
-  );
+    return (
+        <SafeAreaView style={styles.boundaries}>
+            <View style={styles.layout}>{children}</View>
+        </SafeAreaView>
+    );
 }
 
 ScreenContainer.propTypes = {
-  // Localized title
-  title: PropTypes.string,
+    // Localized title
+    title:PropTypes.string,
 };
 
 ScreenContainer.defaultProps = {
-  title: '',
+    title:"",
 };
 
 export default ScreenContainer;
