@@ -49,6 +49,7 @@
             "after":false,
             "overrides":{
                 "import":{"before":true,"after":true},
+                "export":{"before":true,"after":true},
                 "from":{"before":true,"after":true},
                 "return":{"before":true,"after":true}
             }

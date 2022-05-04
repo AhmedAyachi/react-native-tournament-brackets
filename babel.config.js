@@ -14,5 +14,11 @@ module.exports = {
             },
         ],
         "react-native-reanimated/plugin",
+        ["module-resolver",{
+            alias:{
+                "components":"./src/shared/components",
+                "appjson":"./src/App.json",
+            }
+        }],
     ],
 };
