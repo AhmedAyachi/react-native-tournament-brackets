@@ -13,12 +13,14 @@ module.exports = {
                 allowUndefined:false,
             },
         ],
-        "react-native-reanimated/plugin",
         ["module-resolver",{
             alias:{
                 "components":"./src/shared/components",
                 "appjson":"./src/App.json",
+                "data":"./src/shared/Data.json",
+                "css":"./src/shared/index.js"
             }
         }],
+        "react-native-reanimated/plugin",
     ],
 };

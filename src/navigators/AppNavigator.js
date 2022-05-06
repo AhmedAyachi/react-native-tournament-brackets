@@ -10,14 +10,12 @@ import StorybookUIRoot from "../../storybook";
 import PreviewEntranceScreen from "../shared/components/organisms/PreviewEntranceScreen";
 import HomeScreen from "../features/Home";
 import SampleScreen from "../features/Sample";
-import {BracketsView} from "components";
 
 
 export default function AppNavigator(){
     return (
         <NavigationContainer>
-            {/* APP_ENV==="preview"?<PreviewEntranceNavigator/>:<HomeNavigator/> */}
-            <BracketsView/>
+            {APP_ENV==="preview"?<PreviewEntranceNavigator/>:<HomeNavigator/>}
         </NavigationContainer>
     );
 }

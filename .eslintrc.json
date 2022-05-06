@@ -3,7 +3,9 @@
     "rules":{
         "prettier/prettier":"off",
         "quotes":[2,"double"],
-        "indent":[2,4],
+        "indent":[2,4,{
+            "VariableDeclarator":0
+        }],
         "comma-dangle":"off",
         "prefer-const":"off",
         "no-multi-spaces":[2,{
@@ -51,6 +53,9 @@
                 "import":{"before":true,"after":true},
                 "export":{"before":true,"after":true},
                 "from":{"before":true,"after":true},
+                "const":{"before":true,"after":true},
+                "let":{"before":true,"after":true},
+                "var":{"before":true,"after":true},
                 "return":{"before":true,"after":true}
             }
         }],
