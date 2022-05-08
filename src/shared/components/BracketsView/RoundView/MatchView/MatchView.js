@@ -8,7 +8,7 @@ export default function MatchView(props){
     return (
         <View style={css.matchview}>
             {participants.map((participant,i)=>(
-                <Text key={`p${i}`}>{participant.name}</Text>
+                <Text key={`p${i}`} style={{color:participant.isWinner?"green":"red"}}>{participant.name}</Text>
             ))}
         </View>
     )

@@ -1,11 +1,11 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {View,Text} from "react-native";
 import css from "./RoundView.style";
 import MatchView from "./MatchView/MatchView";
 
 
 export default function RoundView(props){
-    const {round,matches}=props;
+    const {round}=props,{matches}=round;
     return (
         <View style={css.roundview}>
             <View style={css.row0}>

@@ -1,7 +1,8 @@
-import React,{useRef} from "react";
+import React from "react";
 import {ScrollView} from "react-native";
 import css from "./BracketsView.style";
 import RoundView from "./RoundView/RoundView";
+import {areEqualArrays} from "shared";
 
 
 export default function BracketsView(props){
@@ -12,35 +13,58 @@ export default function BracketsView(props){
             contentContainerStyle={css.container}
             horizontal={true}
         >
-            {getRoundViews(data.matches)}
+            {getRounds(data).map((round,i)=>(
+                <RoundView key={`round${i}`} round={round}/>
+            ))}
         </ScrollView>
     )
 }
-
-const getRoundViews=(initials)=>{
-    const roundviews=[];
-    let matches=initials,i=0;
-    while(matches.length>1){
-        if(i>0){
-            matches=getNextRoundMatches(matches);
+const getRounds=(data)=>{
+    const roundrefs=data.rounds;
+    let nextopponents=null;
+    return roundrefs.map((roundref,i)=>{
+        let matches=roundref.matchIds.map(matchId=>data.matches.find(({id})=>id===matchId));
+        if(nextopponents){
+            console.log("nextopponents:",nextopponents);
+            matches=getSortMatches(matches,nextopponents);
+            console.log("matches:",matches);
         }
-        roundviews.push(<RoundView key={`r${i}`} round={{title:`round ${i+1}`}} matches={matches}/>);
-        i++;
+        matches=matches.map(({id})=>getMatchFromId(id,data));
+        const round={
+            title:`round ${i+1}`,
+            ...roundref,matches,
+        };
+        nextopponents=getNextRoundopponents(matches);
+        return round;
+    });
+};
+
+const getMatchFromId=(matchId,data)=>{
+    let match=data.matches.find(match=>match.id===matchId);
+    if(match){
+        match={
+            ...match,
+            participants:match.participantIds.map(participantId=>({...data.participants.find(participant=>participant.id===participantId)})),
+        };
+        const winner=match.participants.find(({id})=>id===match.winnerId);
+        if(winner){
+            winner.isWinner=true;
+        }
+        delete match.winnerId;
+        delete match.participantIds;
     }
-    return roundviews;
+    return match;
 }
 
-const getNextRoundMatches=(prevs=[])=>{
-    let matches=new Array(Math.floor(prevs.length/2)).fill(null).map(()=>[]);
-    prevs.forEach((match,i)=>{
-        matches[Math.floor(i/2)].push(match);
+const getNextRoundopponents=(matches)=>{
+    const nextRoundopponents=new Array(Math.round(matches.length/2)).fill(null).map(()=>[]);
+    matches.forEach((match,i)=>{
+        nextRoundopponents[Math.floor(i/2)].push(match.participants.find(({isWinner})=>isWinner).id);
     });
-    matches=matches.map(([first,second])=>({
-        id:`${first.id||""}${second.id||""}`,
-        participants:[
-            first.participants.find(({isWinner})=>isWinner),
-            second.participants.find(({isWinner})=>isWinner),
-        ].map(participant=>({...participant,isWinner:true})),
-    }));
-    return matches;
+    return nextRoundopponents;
+}
+
+const getSortMatches=(matches=[],idpairss=[])=>{
+    const sorted=idpairss.map(idpair=>matches.find(match=>areEqualArrays(idpair,match.participantIds)));
+    return sorted;
 }
