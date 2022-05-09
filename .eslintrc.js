@@ -59,6 +59,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-cycle': 'warn',
     'import/no-unresolved': [2, { ignore: ['@env'] }],
+    'import/namespace': [0],
 
     /* ******************************* JSX / REACT ****************************** */
 
