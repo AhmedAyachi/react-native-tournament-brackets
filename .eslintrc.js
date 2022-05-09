@@ -38,7 +38,7 @@ module.exports = {
     /* ******************************* FORMATTING ******************************* */
 
     indent: ['error', 2],
-    'linebreak-style': ['error', 'unix'],
+    'linebreak-style': [0, 'unix'],
     quotes: [2, 'single', { avoidEscape: true }],
     semi: ['error', 'always'],
     'max-len': ['warn', { code: 120 }],
@@ -58,8 +58,9 @@ module.exports = {
     'no-empty': 'warn',
     'import/prefer-default-export': 'off',
     'import/no-cycle': 'warn',
-    'import/no-unresolved': [2, { ignore: ['@env'] }],
+    'import/no-unresolved': [0, { ignore: ['@env'] }],
     'import/namespace': [0],
+    'import/default': [0],
 
     /* ******************************* JSX / REACT ****************************** */
 

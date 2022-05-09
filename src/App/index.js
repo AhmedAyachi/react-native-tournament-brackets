@@ -37,7 +37,7 @@ import i18n from '../../localization/i18n';
  * @param {String} rootTarget Tells whether to render Storybook or only the app
  * @returns {ReactElement} Application container
  */
-function App({ rootTarget, children }) {
+export default function App({ rootTarget, children }) {
   /* ********************************** HOOKS ********************************* */
 
   useEffect(() => {
@@ -62,5 +62,3 @@ function App({ rootTarget, children }) {
     </Provider>
   );
 }
-
-export default App;
