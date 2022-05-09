@@ -5,13 +5,13 @@ import {Button, Text} from "react-native-ui-lib";
 // Local UI components
 import ScreenContainer from "../../shared/components/organisms/ScreenContainer";
 //Components:
-import {BracketsView} from "components";
+import {SingleEliminationView} from "components";
 import data from "data";
 
 function HomeScreen({navigation}){
     return (
         <ScreenContainer>
-            <BracketsView data={data}/>
+            <SingleEliminationView data={data}/>
         </ScreenContainer>
     );
 }

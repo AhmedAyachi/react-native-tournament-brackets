@@ -1,15 +1,15 @@
 import React from "react";
 import {ScrollView} from "react-native";
-import css from "./BracketsView.style";
+import css from "./SingleEliminationView.style";
 import RoundView from "./RoundView/RoundView";
 
 
-export default function BracketsView(props){
+export default function SingleEliminationView(props){
     const {data,onPlayMatch}=props,rounds=getRounds(data);
     let spacing=75;
     return (
         <ScrollView
-            style={css.bracketsview}
+            style={css.singleeliminationview}
             contentContainerStyle={css.container}
             horizontal={true}
         >

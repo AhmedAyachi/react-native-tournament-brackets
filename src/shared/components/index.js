@@ -1,3 +1,3 @@
 
 
-export {default as BracketsView} from "./BracketsView/BracketsView";
+export {default as SingleEliminationView} from "./SingleEliminationView/SingleEliminationView";
