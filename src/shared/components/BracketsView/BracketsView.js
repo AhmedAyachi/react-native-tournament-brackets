@@ -6,17 +6,26 @@ import RoundView from "./RoundView/RoundView";
 
 export default function BracketsView(props){
     const {data,onPlayMatch}=props,rounds=getRounds(data);
+    let spacing=75;
     return (
         <ScrollView
             style={css.bracketsview}
             contentContainerStyle={css.container}
             horizontal={true}
         >
-            {rounds.map((round,i)=>(
-                <RoundView key={`round${i}`} round={round} onWinMatch={onPlayMatch&&((match)=>{
-                    onPlayMatch({match,round});
-                })}/>
-            ))}
+            {rounds.map((round,i)=>{
+                spacing=(spacing+50*(i-1));
+                return (
+                    <RoundView
+                        spacing={i?spacing:0}
+                        key={`round${i}`}
+                        round={round}
+                        onWinMatch={onPlayMatch&&((match)=>{
+                            onPlayMatch({match,round});
+                        })}
+                    />
+                )
+            })}
         </ScrollView>
     )
 }
@@ -31,7 +40,7 @@ const getRounds=(data)=>{
         const round={
             title:`round ${i+1}`,
             ...roundref,
-            matches:matches.map((matchref,i)=>getMatchData(matchref,data,opponentIds&&opponentIds[i])),
+            matches:matches.map((matchref,i)=>matchref&&getMatchData(matchref,data,opponentIds&&opponentIds[i])),
         };
         if(round.matches.length>1){
             opponentIds=getNextRoundopponentIds(round.matches);
@@ -58,8 +67,17 @@ const getMatchData=(matchref,data,opponents)=>{
 
 const getNextRoundopponentIds=(matches)=>{
     const nextRoundopponents=new Array(Math.round(matches.length/2)).fill(null).map(()=>[]);
+    const excludedmatchIds=[];
     matches.forEach((match,i)=>{
-        nextRoundopponents[Math.floor(i/2)].push(match.participants.find(({isWinner})=>isWinner).id);
+        if(match&&(!excludedmatchIds.includes(i))){
+            const winner=match.participants.find(({isWinner})=>isWinner);
+            if(winner){
+                nextRoundopponents[Math.floor(i/2)].push(winner.id);
+            }
+            else{
+                excludedmatchIds.push(i+1);
+            }
+        }
     });
     return nextRoundopponents;
 }

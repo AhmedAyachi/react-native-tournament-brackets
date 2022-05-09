@@ -9,7 +9,7 @@ export default function MatchView(props){
         (match.status==="played")&&onPlay&&onPlay(match);
     },[]);
     return (
-        <View style={[css.matchview,{backgroundColor:getStatusColor(match.status)}]}>
+        <View style={[css.matchview,{backgroundColor:getStatusColor(match.status)},props.style]}>
             {participants.map((participant,i)=>(
                 <Text key={`p${i}`} style={{color:participant.isWinner?"green":"red"}}>{participant.name}</Text>
             ))}

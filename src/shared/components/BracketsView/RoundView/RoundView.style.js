@@ -17,6 +17,10 @@ const css=StyleSheet.create({
         textTransform:"capitalize",
         fontWeight:"700",
     },
+    space:{
+        height:50,
+        ...border(1,"solid","blue"),
+    },
 });
 
 export default css;
