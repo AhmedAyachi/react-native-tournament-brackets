@@ -6,10 +6,7 @@ import css from "./MatchView.style";
 export default function MatchView(props){
     const {match,onPlay}=props,{participants}=match;
     useEffect(()=>{
-        onPlay&&onPlay({
-            winner:participants.find(({isWinner})=>isWinner),
-            loser:participants.find(({isWinner})=>!isWinner),
-        });
+        (match.status==="played")&&onPlay&&onPlay(match);
     },[]);
     return (
         <View style={[css.matchview,{backgroundColor:getStatusColor(match.status)}]}>

@@ -13,8 +13,8 @@ export default function BracketsView(props){
             horizontal={true}
         >
             {rounds.map((round,i)=>(
-                <RoundView key={`round${i}`} round={round} onWinMatch={onPlayMatch&&((participants)=>{
-                    onPlayMatch({...participants,round});
+                <RoundView key={`round${i}`} round={round} onWinMatch={onPlayMatch&&((match)=>{
+                    onPlayMatch({match,round});
                 })}/>
             ))}
         </ScrollView>
@@ -31,7 +31,7 @@ const getRounds=(data)=>{
         const round={
             title:`round ${i+1}`,
             ...roundref,
-            matches:matches.map((matchref,i)=>getMatchFromId(matchref,data,opponentIds&&opponentIds[i])),
+            matches:matches.map((matchref,i)=>getMatchData(matchref,data,opponentIds&&opponentIds[i])),
         };
         if(round.matches.length>1){
             opponentIds=getNextRoundopponentIds(round.matches);
@@ -40,14 +40,17 @@ const getRounds=(data)=>{
     });
 };
 
-const getMatchFromId=(matchref,data,opponents)=>{
-    const match={...matchref},{participantIds=opponents}=matchref;
+const getMatchData=(matchref,data,opponents)=>{
+    const match={...matchref},participantIds=opponents||matchref.participantIds;
     match.participants=participantIds.map(participantId=>({...data.participants.find(participant=>participant.id===participantId)}));
     const winner=match.participants.find(({id})=>id===match.winnerId);
     if(winner){
         winner.isWinner=true;
+        match.status="played";
     }
-    match.status=winner?"played":"pending";
+    else if(!match.status){
+        match.status="pending";
+    }
     delete match.winnerId;
     delete match.participantIds;
     return match;
