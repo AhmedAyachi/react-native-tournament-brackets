@@ -6,7 +6,7 @@ const css=StyleSheet.create({
     singleeliminationview:{
         width:"100%",
         height:"100%",
-        ...border(2,"solid","blue"),
+        //backgroundColor:"rgba(0,0,0,0.05)",
     },
     container:{
         justifyContent:"flex-start",
