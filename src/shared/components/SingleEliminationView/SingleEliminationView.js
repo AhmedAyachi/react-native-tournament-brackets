@@ -6,19 +6,15 @@ import RoundView from './RoundView/RoundView';
 export default function SingleEliminationView(props) {
   const { data, onPlayMatch } = props,
     rounds = getRounds(data);
-  let spacing = 75;
   return (
     <ScrollView
       style={css.singleeliminationview}
       contentContainerStyle={css.container}
-      horizontal={true}
     >
-      {rounds.map((round, i) => {
-        spacing += 50 * (i - 1);
-        return (
+      <ScrollView contentContainerStyle={css.container} horizontal={true}>
+        {rounds.map((round, i) => (
           <RoundView
-            spacing={i ? spacing : 0}
-            key={`round${i + 1}`}
+            key={`round${i}`}
             round={round}
             onWinMatch={
               onPlayMatch &&
@@ -27,11 +23,12 @@ export default function SingleEliminationView(props) {
               })
             }
           />
-        );
-      })}
+        ))}
+      </ScrollView>
     </ScrollView>
   );
 }
+
 const getRounds = (data) => {
   const roundrefs = data.rounds;
   let opponentIds = null;

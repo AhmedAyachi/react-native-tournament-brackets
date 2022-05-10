@@ -1,12 +1,21 @@
 import { StyleSheet } from 'react-native';
-import { border } from 'css';
+import { border, rem } from 'css';
 
 const css = StyleSheet.create({
+  date: {
+    fontWeight: '700',
+  },
   matchview: {
     alignItems: 'center',
-    height: 50,
     justifyContent: 'center',
-    ...border(2, 'solid', 'red'),
+    marginVertical: 1 * rem,
+    overflow: 'hidden',
+  },
+  row0: {
+    width: '100%',
+  },
+  row1: {
+    width: '100%',
   },
 });
 

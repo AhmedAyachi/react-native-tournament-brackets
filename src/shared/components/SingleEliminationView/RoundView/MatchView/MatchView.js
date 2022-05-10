@@ -1,34 +1,29 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable indent */
-/* eslint-disable react-native/no-color-literals */
-/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import css from './MatchView.style';
+import ParticipantView from './ParticipantView/ParticipantView';
 
 export default function MatchView(props) {
   const { match, onPlay, style } = props,
     { participants } = match;
   useEffect(() => {
     if (match.status === 'played' && onPlay) onPlay(match);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <View
-      style={[
-        css.matchview,
-        { backgroundColor: getStatusColor(match.status) },
-        style,
-      ]}
-    >
-      {participants.map((participant, i) => (
-        <Text
-          key={`p${i + 1}`}
-          style={{ color: participant.isWinner ? 'green' : 'red' }}
-        >
-          {participant.name}
-        </Text>
-      ))}
+    <View style={[css.matchview, style]}>
+      <View style={css.row0}>
+        <Text style={css.date}>{match.date}</Text>
+      </View>
+      <View style={css.row1}>
+        {participants.map((participant, i) => (
+          <ParticipantView
+            style={{ backgroundColor: participant.isWinner ? 'green' : 'red' }}
+            key={`participant${i + 1}`}
+            participant={participant}
+          />
+        ))}
+      </View>
     </View>
   );
 }

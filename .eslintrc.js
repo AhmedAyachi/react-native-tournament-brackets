@@ -43,7 +43,6 @@ module.exports = {
     semi: ['error', 'always'],
     'max-len': ['warn', { code: 120 }],
     'object-curly-spacing': 0,
-
     /* ******************************* JAVASCRIPT ******************************* */
     camelcase: 'warn',
     'arrow-parens': ['warn', 'always'],
@@ -68,15 +67,18 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', 'mdx'] }],
     'react/display-name': 'off',
     'react/jsx-props-no-spreading': 0,
+    'react/no-array-index-key': 0,
+    'react-hooks/exhaustive-deps': 0,
 
     /* ****************************** REACT NATIVE ****************************** */
 
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
-    'react-native/no-inline-styles': 2,
-    'react-native/no-color-literals': 2,
+    'react-native/no-inline-styles': 0,
+    'react-native/no-color-literals': 0,
     'react-native/no-raw-text': 2,
     'react-native/no-single-element-style-arrays': 2,
+    'react/destructuring-assignment': 0,
 
     /* ****************************** DEPENDENCIES ****************************** */
 

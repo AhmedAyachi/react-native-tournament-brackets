@@ -9,7 +9,7 @@ const css = StyleSheet.create({
   singleeliminationview: {
     height: '100%',
     width: '100%',
-    ...border(2, 'solid', 'blue'),
+    // backgroundColor:"rgba(0,0,0,0.05)",
   },
 });
 
