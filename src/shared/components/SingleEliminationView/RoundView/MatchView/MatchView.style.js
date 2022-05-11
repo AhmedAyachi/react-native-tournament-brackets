@@ -18,6 +18,11 @@ const css=StyleSheet.create({
     date:{
         fontWeight:"700",
     },
+    status:{
+        fontWeight:"700",
+        textTransform:"capitalize",
+        color:"orangered",
+    },
 });
 
 export default css;

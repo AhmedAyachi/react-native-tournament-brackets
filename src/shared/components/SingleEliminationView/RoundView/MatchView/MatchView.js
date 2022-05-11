@@ -1,13 +1,18 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useRef} from "react";
 import {View,Text} from "react-native";
 import css from "./MatchView.style";
 import ParticipantView from "./ParticipantView/ParticipantView";
 
 
 export default function MatchView(props){
-    const {match,onPlay}=props,{participants}=match;
+    const {match,onPlay}=props,{participants,status}=match;
+    const state=useRef({
+        isPlayed:status==="played",
+    }).current,{isPlayed}=state;
     useEffect(()=>{
-        (match.status==="played")&&onPlay&&onPlay(match);
+        if(isPlayed){
+            onPlay&&onPlay(match);
+        }
     },[]);
     return (
         <View style={[css.matchview,props.style]}>
@@ -17,14 +22,22 @@ export default function MatchView(props){
             <View style={css.row1}>
                 {participants.map((participant,i)=>(
                     <ParticipantView
-                        style={{backgroundColor:participant.isWinner?"green":"red"}}
+                        style={{backgroundColor:isPlayed?(participant.isWinner?"green":"red"):"orangered"}}
                         key={`participant${i+1}`}
-                        participant={participant}
+                        participant={participant||noparticipant}
+                        label={isPlayed&&(participant.isWinner?"win":"loss")}
                     />
                 ))}
+                {isPlayed||
+                    <Text style={css.status} numberOfLines={1}>{status}</Text>
+                }
             </View>
         </View>
     )
+}
+
+const noparticipant={
+    name:"",
 }
 
 const getStatusColor=(status)=>{

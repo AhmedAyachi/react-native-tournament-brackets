@@ -14,10 +14,9 @@ export default function RoundView(props){
                 </View>
             </View>
             <View style={[css.row1]}>
-                {matches&&matches.map((match,i)=>match?
-                    <MatchView key={`m${i}`} match={match} onPlay={props.onPlayMatch}/>:
-                    <Text style={[css.space,getSpacingStyle(props.spacing)]}>Empty space</Text>
-                )}
+                {matches&&matches.map((match,i)=>(
+                    <MatchView key={`m${i}`} match={match} onPlay={props.onPlayMatch}/>
+                ))}
             </View>
         </View>
     )

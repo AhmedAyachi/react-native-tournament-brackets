@@ -11,7 +11,7 @@ const css=StyleSheet.create({
         overflow:"hidden",
     },
     col0:{
-        flex:1,maxWidth:10*rem,
+        minWidth:5*rem,flex:1,maxWidth:10*rem,
         justifyContent:"center",
         alignItems:"flex-start",
         paddingVertical:0.5*rem,
@@ -28,7 +28,6 @@ const css=StyleSheet.create({
         textTransform:"capitalize",
         textAlign:"left",
         color:"white",
-        
     },
     status:{
         textTransform:"capitalize",
