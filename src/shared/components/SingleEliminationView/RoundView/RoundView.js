@@ -4,7 +4,7 @@ import css from './RoundView.style';
 import MatchView from './MatchView/MatchView';
 
 export default function RoundView(props) {
-  const { round, onPlayMatch } = props,
+  const { round } = props,
     { matches } = round;
   return (
     <View style={css.roundview}>
@@ -15,13 +15,9 @@ export default function RoundView(props) {
       </View>
       <View style={css.row1}>
         {matches &&
-          matches.map((match, i) =>
-            match ? (
-              <MatchView key={`m${i + 1}`} match={match} onPlay={onPlayMatch} />
-            ) : (
-              <Text style={css.space}>Empty space</Text>
-            ),
-          )}
+          matches.map((match, i) => (
+            <MatchView key={`m${i}`} match={match} onPlay={props.onPlayMatch} />
+          ))}
       </View>
     </View>
   );

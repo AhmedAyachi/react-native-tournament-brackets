@@ -17,6 +17,11 @@ const css = StyleSheet.create({
   row1: {
     width: '100%',
   },
+  status: {
+    color: 'orangered',
+    fontWeight: '700',
+    textTransform: 'capitalize',
+  },
 });
 
 export default css;

@@ -35,15 +35,13 @@ const getRounds = (data) => {
   return roundrefs.map((roundref, i) => {
     let { matches } = roundref;
     if (opponentIds) {
-      matches = getSortMatches(matches, opponentIds);
+      matches = getSortedMatches(matches, opponentIds);
     }
     const round = {
       title: `round ${i + 1}`,
       ...roundref,
-      matches: matches.map(
-        (matchref, j) =>
-          matchref &&
-          getMatchData(matchref, data, opponentIds && opponentIds[j]),
+      matches: matches.map((matchref, i) =>
+        getMatchData(matchref, data, opponentIds && opponentIds[i]),
       ),
     };
     if (round.matches.length > 1) {
@@ -61,15 +59,21 @@ const getMatchData = (matchref, data, opponents) => {
       (participant) => participant.id === participantId,
     ),
   }));
-  const winner = match.participants.find(({ id }) => id === match.winnerId);
-  if (winner) {
-    winner.isWinner = true;
-    match.status = 'played';
-  } else if (!match.status) {
+  if (participantIds.length >= 2) {
+    const winner = match.participants.find(({ id }) => id === match.winnerId);
+    if (winner) {
+      winner.isWinner = true;
+      match.status = 'played';
+    } else {
+      match.status = 'pending';
+    }
+  } else {
+    const { participants } = match;
     match.status = 'pending';
+    while (participants.length < 2) {
+      participants.push(null);
+    }
   }
-  delete match.winnerId;
-  delete match.participantIds;
   return match;
 };
 
@@ -79,21 +83,22 @@ const getNextRoundopponentIds = (matches) => {
     .map(() => []);
   const excludedmatchIds = [];
   matches.forEach((match, i) => {
-    if (match && !excludedmatchIds.includes(i)) {
-      const winner = match.participants.find(({ isWinner }) => isWinner);
-      if (winner) {
-        nextRoundopponents[Math.floor(i / 2)].push(winner.id);
-      } else {
-        excludedmatchIds.push(i + 1);
-      }
+    const winner = match.participants.find(
+      (participant) => participant && participant.isWinner,
+    );
+    if (winner) {
+      nextRoundopponents[Math.floor(i / 2)].push(winner.id);
+    } else {
+      excludedmatchIds.push(i + 1);
     }
   });
   return nextRoundopponents;
 };
 
-const getSortMatches = (matches = [], idpairs = []) => {
-  const sorted = idpairs.map((idpair) =>
-    matches.find((match) => idpair.includes(match.winnerId)),
+const getSortedMatches = (matches = [], idpairs = []) => {
+  const sorted = idpairs.map(
+    (idpair, i) =>
+      matches.find((match) => idpair.includes(match.winnerId)) || matches[i],
   );
   return sorted;
 };

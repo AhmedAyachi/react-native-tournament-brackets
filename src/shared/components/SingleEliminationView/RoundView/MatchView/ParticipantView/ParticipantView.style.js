@@ -7,6 +7,7 @@ const css = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     maxWidth: 10 * rem,
+    minWidth: 5 * rem,
     overflow: 'hidden',
     paddingLeft: 0.5 * rem,
     paddingVertical: 0.5 * rem,
