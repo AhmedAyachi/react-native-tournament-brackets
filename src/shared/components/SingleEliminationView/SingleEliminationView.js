@@ -74,6 +74,8 @@ const getMatchData = (matchref, data, opponents) => {
       participants.push(null);
     }
   }
+  delete match.winnerId;
+  delete match.participantIds;
   return match;
 };
 
