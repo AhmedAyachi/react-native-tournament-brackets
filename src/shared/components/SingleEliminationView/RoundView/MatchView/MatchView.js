@@ -36,11 +36,9 @@ export default function MatchView(props) {
             label={isPlayed && (participant.isWinner ? 'win' : 'loss')}
           />
         ))}
-        {isPlayed || (
-          <Text style={css.status} numberOfLines={1}>
-            {status}
-          </Text>
-        )}
+        <Text style={css.status} numberOfLines={1}>
+          {isPlayed ? '' : status}
+        </Text>
       </View>
     </View>
   );

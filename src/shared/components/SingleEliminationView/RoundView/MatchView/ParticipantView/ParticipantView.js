@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { rem } from 'css';
 import css from './ParticipantView.style';
 
 export default function ParticipantView(props) {
   const { participant, label } = props;
   return (
     <View style={[css.participantview, props.style]}>
-      <View style={[css.col0, { alignItems: label ? 'flex-start' : 'center' }]}>
+      <View style={[css.col0, styles.col0(label)]}>
         <Text style={css.name} numberOfLines={1}>
           {participant.name}
         </Text>
@@ -21,3 +22,10 @@ export default function ParticipantView(props) {
     </View>
   );
 }
+
+const styles = {
+  col0: (label) => ({
+    minWidth: (label ? 5 : 9) * rem,
+    alignItems: label ? 'flex-start' : 'center',
+  }),
+};
