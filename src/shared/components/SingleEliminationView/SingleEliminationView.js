@@ -6,18 +6,22 @@ import RoundView from "./RoundView/RoundView";
 
 export default function SingleEliminationView(props){
     const {data,onPlayMatch}=props,rounds=getRounds(data);
+    let height=25;
     return (
         <ScrollView style={css.singleeliminationview} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
-                {rounds.map((round,i)=>(
-                    <RoundView
+                {rounds.map((round,i)=>{
+                    height*=2;
+                    return <RoundView
                         key={`round${i}`}
                         round={round}
+                        connected={i>0}
+                        connectorStyle={{height,strokeWidth:3/i}}
                         onWinMatch={onPlayMatch&&((match)=>{
                             onPlayMatch({match,round});
                         })}
                     />
-                ))}
+                })}
             </ScrollView>
         </ScrollView>
     )
