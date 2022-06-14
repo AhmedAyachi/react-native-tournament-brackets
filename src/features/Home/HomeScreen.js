@@ -15,7 +15,7 @@ function HomeScreen({navigation}){
                 data={data}
                 stroke="orange"
                 strokeWidth={2}
-                //renderMatch={(props)=>MatchTestView(props)}
+                //renderMatch={MatchTestView}
             />
         </ScreenContainer>
     );

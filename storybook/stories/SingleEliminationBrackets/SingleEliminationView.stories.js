@@ -4,6 +4,6 @@ import {storiesOf} from "@storybook/react-native";
 import data from "data";
 
 
-storiesOf("SingleEliminationBrackets",module).add("SingleEliminationView",()=>(
+storiesOf("SingleEliminationBrackets",module).add("Default",()=>(
     <SingleEliminationView data={data}/>
 ))
