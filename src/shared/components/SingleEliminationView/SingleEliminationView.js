@@ -41,7 +41,7 @@ export default function SingleEliminationView(props) {
 }
 
 const getRounds = (data) => {
-  const roundrefs = data.rounds;
+  const roundrefs = getGenuineRounds(data.rounds);
   let opponentIds = null;
   return roundrefs.map((roundref, i) => {
     let { matches } = roundref;
@@ -60,6 +60,23 @@ const getRounds = (data) => {
     }
     return round;
   });
+};
+
+const getGenuineRounds = (rounds) => {
+  let genuine;
+  const roundlength = rounds && rounds.length;
+  if (Array.isArray(rounds) && roundlength) {
+    const first = rounds[0],
+      { matches } = first;
+    if (Array.isArray(matches)) {
+      const { length } = matches;
+      let size = Math.floor(Math.log(length) / Math.log(2)) + 1;
+      genuine = roundlength === size ? rounds : rounds.slice(0, size);
+      size = 2 ** (size - 1);
+      first.matches = length === size ? matches : matches.slice(0, size);
+    }
+  }
+  return genuine || [];
 };
 
 const getMatchData = (matchref, data, opponents) => {
