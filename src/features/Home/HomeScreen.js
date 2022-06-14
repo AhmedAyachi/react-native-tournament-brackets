@@ -3,10 +3,10 @@ import React from 'react';
 // UI lib components
 import { Button, Text } from 'react-native-ui-lib';
 // Local UI components
-// Components:
+import ScreenContainer from '../../shared/components/organisms/ScreenContainer';
+//Components:
 import { SingleEliminationView, MatchTestView } from 'components';
 import data from 'data';
-import ScreenContainer from '../../shared/components/organisms/ScreenContainer';
 
 function HomeScreen({ navigation }) {
   return (
@@ -15,7 +15,7 @@ function HomeScreen({ navigation }) {
         data={data}
         stroke="orange"
         strokeWidth={2}
-        // renderMatch={(props)=>MatchTestView(props)}
+        //renderMatch={MatchTestView}
       />
     </ScreenContainer>
   );
