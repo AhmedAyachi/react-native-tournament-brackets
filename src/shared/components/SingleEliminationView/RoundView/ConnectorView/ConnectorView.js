@@ -6,15 +6,14 @@ import {rem} from "css";
 
 
 export default function ConnectorView(props){
-    const {height=100,strokeWidth=3}=props;
-    const h=50-strokeWidth;
-    const v=50-strokeWidth*3;
+    const {height,strokeWidth,stroke}=props;
+    const h=50-strokeWidth,v=50-strokeWidth*3;
     return (
         <Svg style={css.connectorview} preserveAspectRatio="none"
             width={(height/10)*rem} height={`${height+6}%`} viewBox="0 0 100 100" strokeWidth={strokeWidth}
         >
             <Path
-                fill="transparent" stroke="#f067a0"
+                fill="transparent" stroke={stroke}
                 d={`
                     m0 ${strokeWidth} h${h}
                     c${strokeWidth} 0,${strokeWidth} ${strokeWidth},${strokeWidth} ${strokeWidth}
@@ -29,4 +28,10 @@ export default function ConnectorView(props){
             />
         </Svg>
     )
+}
+
+ConnectorView.defaultProps={
+    height:100,
+    strokeWidth:3,
+    stroke:"#f067a0",
 }

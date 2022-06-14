@@ -16,7 +16,11 @@ export default function SingleEliminationView(props){
                         key={`round${i}`}
                         round={round}
                         connected={i>0}
-                        connectorStyle={{height,strokeWidth:3/i}}
+                        renderMatch={props.renderMatch}
+                        connectorStyle={{
+                            height,strokeWidth:(props.strokeWidth||3)/i,
+                            stroke:props.stroke,
+                        }}
                         onWinMatch={onPlayMatch&&((match)=>{
                             onPlayMatch({match,round});
                         })}

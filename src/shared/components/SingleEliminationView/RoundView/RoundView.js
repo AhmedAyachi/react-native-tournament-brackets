@@ -6,7 +6,7 @@ import ConnectorView from "./ConnectorView/ConnectorView";
 
 
 export default function RoundView(props){
-    const {round,connected,connectorStyle}=props,{matches}=round;
+    const {round,connected,connectorStyle,renderMatch}=props,{matches}=round;
     return (
         <View style={css.roundview}>
             <View style={css.row0}>
@@ -18,10 +18,14 @@ export default function RoundView(props){
                 {matches&&matches.map((match,i)=>(
                     <View style={css.section} key={`section${i}`}>
                         {connected?<ConnectorView {...connectorStyle}/>:<></>}
-                        <MatchView match={match} onPlay={props.onPlayMatch}/>
+                        {renderMatch({match,onPlay:props.onPlayMatch})}
                     </View>
                 ))}
             </View>
         </View>
     )
+}
+
+RoundView.defaultProps={
+    renderMatch:MatchView,
 }
