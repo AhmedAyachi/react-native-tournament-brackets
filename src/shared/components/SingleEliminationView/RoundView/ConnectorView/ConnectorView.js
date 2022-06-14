@@ -5,9 +5,9 @@ import { rem } from 'css';
 import css from './ConnectorView.style';
 
 export default function ConnectorView(props) {
-  const { height = 100, strokeWidth = 3 } = props;
-  const h = 50 - strokeWidth;
-  const v = 50 - strokeWidth * 3;
+  const { height, strokeWidth, stroke } = props;
+  const h = 50 - strokeWidth,
+    v = 50 - strokeWidth * 3;
   return (
     <Svg
       style={css.connectorview}
@@ -19,7 +19,7 @@ export default function ConnectorView(props) {
     >
       <Path
         fill="transparent"
-        stroke="#f067a0"
+        stroke={stroke}
         d={`
                     m0 ${strokeWidth} h${h}
                     c${strokeWidth} 0,${strokeWidth} ${strokeWidth},${strokeWidth} ${strokeWidth}
@@ -35,3 +35,9 @@ export default function ConnectorView(props) {
     </Svg>
   );
 }
+
+ConnectorView.defaultProps = {
+  height: 100,
+  strokeWidth: 3,
+  stroke: '#f067a0',
+};
