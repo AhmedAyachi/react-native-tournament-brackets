@@ -3,18 +3,18 @@ import { border, rem } from 'css';
 
 const css = StyleSheet.create({
   matchtestview: {
-    width: 10 * rem,
-    height: 5 * rem,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'dodgerblue',
+    height: 5 * rem,
+    justifyContent: 'center',
     marginVertical: 1 * rem,
+    width: 10 * rem,
     ...border(1, 'solid', 'black'),
   },
   name: {
+    color: 'black',
     textAlign: 'center',
     textTransform: 'capitalize',
-    color: 'black',
   },
 });
 

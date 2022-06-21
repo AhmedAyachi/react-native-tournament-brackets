@@ -1,4 +1,6 @@
 /* eslint-disable indent */
+
+/* eslint-disable mdx/no-unused-expressions */
 import React, { useEffect, useRef } from 'react';
 import { View, Text } from 'react-native';
 import css from './MatchView.style';
@@ -12,9 +14,7 @@ export default function MatchView(props) {
     }).current,
     { isPlayed } = state;
   useEffect(() => {
-    if (isPlayed && onPlay) {
-      onPlay(match);
-    }
+    onPlay && onPlay(match);
   }, []);
   return (
     <View style={[css.matchview, props.style]}>

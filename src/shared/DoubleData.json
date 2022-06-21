@@ -1,0 +1,188 @@
+{
+  "championship": {
+    "dateformat": "dd/mm/yyyy",
+    "rounds": [
+      {
+        "title": "first round",
+        "matches": [
+          {
+            "id": "m0",
+            "date": "01/07/2022",
+            "participantIds": ["p0", "p1"],
+            "winnerId": "p1"
+          },
+          {
+            "id": "m1",
+            "date": "02/07/2021",
+            "participantIds": ["p2", "p3"],
+            "winnerId": "p3"
+          },
+          {
+            "id": "m2",
+            "date": "03/07/2021",
+            "participantIds": ["p4", "p5"],
+            "winnerId": "p5"
+          },
+          {
+            "id": "m3",
+            "date": "04/07/2021",
+            "participantIds": ["p6", "p7"],
+            "winnerId": "p7"
+          },
+          {
+            "id": "m4",
+            "date": "05/07/2021",
+            "participantIds": ["p8", "p9"],
+            "winnerId": "p9"
+          },
+          {
+            "id": "m5",
+            "date": "06/07/2021",
+            "participantIds": ["p10", "p11"],
+            "winnerId": "p11"
+          },
+          {
+            "id": "m6",
+            "date": "07/07/2021",
+            "participantIds": ["p12", "p13"],
+            "winnerId": "p12"
+          },
+          {
+            "id": "m7",
+            "date": "08/07/2021",
+            "participantIds": ["p14", "p15"],
+            "winnerId": "p15"
+          }
+        ]
+      },
+      {
+        "title": "1/4 final",
+        "matches": [
+          {
+            "id": "m8",
+            "date": "09/07/2021",
+            "winnerId": "p2"
+          },
+          {
+            "id": "m9",
+            "date": "10/07/2021",
+            "winnerId": "p7"
+          },
+          {
+            "id": "m10",
+            "date": "11/07/2021",
+            "winnerId": "p9"
+          },
+          {
+            "id": "m11",
+            "date": "12/07/2021",
+            "winnerId": "p12"
+          }
+        ]
+      },
+      {
+        "title": "semi-final",
+        "matches": [
+          {
+            "id": "m12",
+            "date": "13/07/2021",
+            "winnerId": "p2"
+          },
+          {
+            "id": "m13",
+            "date": "14/07/2021",
+            "winnerId": "p12"
+          }
+        ]
+      },
+      {
+        "title": "final",
+        "matches": [
+          {
+            "id": "m14",
+            "date": "15/07/2021",
+            "winnerId": "p12"
+          }
+        ]
+      }
+    ]
+  },
+  "elimination": {
+    "rounds": [
+      {
+        "matches": [
+          {
+            "date": "20/07/2021",
+            "winnerId": "p0"
+          }
+        ]
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "p0",
+      "name": "adrian"
+    },
+    {
+      "id": "p1",
+      "name": "kevin"
+    },
+    {
+      "id": "p2",
+      "name": "lisa"
+    },
+    {
+      "id": "p3",
+      "name": "scott"
+    },
+    {
+      "id": "p4",
+      "name": "bert"
+    },
+    {
+      "id": "p5",
+      "name": "arthur"
+    },
+    {
+      "id": "p6",
+      "name": "drew"
+    },
+    {
+      "id": "p7",
+      "name": "ernie"
+    },
+    {
+      "id": "p8",
+      "name": "michelle"
+    },
+    {
+      "id": "p9",
+      "name": "andrew"
+    },
+    {
+      "id": "p10",
+      "name": "johan"
+    },
+    {
+      "id": "p11",
+      "name": "ian"
+    },
+    {
+      "id": "p12",
+      "name": "monica"
+    },
+    {
+      "id": "p13",
+      "name": "steve"
+    },
+    {
+      "id": "p14",
+      "name": "red"
+    },
+    {
+      "id": "p15",
+      "name": "robert"
+    }
+  ]
+}

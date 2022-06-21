@@ -26,7 +26,7 @@ export default function SingleEliminationView(props) {
                 strokeWidth: (props.strokeWidth || 3) / i,
                 stroke: props.stroke,
               }}
-              onWinMatch={
+              onPlayMatch={
                 onPlayMatch &&
                 ((match) => {
                   onPlayMatch({ match, round });
@@ -49,8 +49,10 @@ const getRounds = (data) => {
       matches = getSortedMatches(matches, opponentIds);
     }
     const round = {
+      id: `r${i}`,
       title: `round ${i + 1}`,
       ...roundref,
+      index: i,
       matches: matches.map((matchref, i) =>
         getMatchData(matchref, data, opponentIds && opponentIds[i]),
       ),

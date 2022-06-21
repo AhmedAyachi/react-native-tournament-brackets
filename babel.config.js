@@ -19,7 +19,6 @@ module.exports = {
         alias: {
           components: './src/shared/components',
           appjson: './src/App.json',
-          data: './src/shared/Data.json',
           shared: './src/shared',
           css: './src/shared/index.style.js',
         },
