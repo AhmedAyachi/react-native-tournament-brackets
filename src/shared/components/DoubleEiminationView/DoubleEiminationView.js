@@ -16,6 +16,7 @@ export default function DoubleEiminationView(props){
     return (
         <ScrollView style={css.doubleeiminationview} contentContainerStyle={css.container}>
             <SingleEliminationView {...props}
+                style={css.singleeliminationview}
                 data={{...data.championship,participants:data.participants}}
                 onPlayMatch={(params)=>{
                     setElimRounds({elimrounds,params,data});
@@ -27,6 +28,7 @@ export default function DoubleEiminationView(props){
             />
             {ready&&
                 <SingleEliminationView {...props}
+                    style={css.singleeliminationview}
                     data={{title:"elimination",rounds:elimrounds,participants:data.participants}}
                     onPlayMatch={onPlayMatch&&((params)=>{
                         params.round.isChampionship=true;

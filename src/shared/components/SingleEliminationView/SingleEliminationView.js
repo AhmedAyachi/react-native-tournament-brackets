@@ -8,7 +8,7 @@ export default function SingleEliminationView(props){
     const {data,onPlayMatch}=props,rounds=getRounds(data);
     let height=25;
     return (
-        <ScrollView style={css.singleeliminationview} contentContainerStyle={css.container}>
+        <ScrollView style={[css.singleeliminationview,props.style]} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
                 {rounds.map((round,i)=>{
                     height*=2;
