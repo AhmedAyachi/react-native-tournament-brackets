@@ -5,18 +5,19 @@ import {Button, Text} from "react-native-ui-lib";
 // Local UI components
 import ScreenContainer from "../../shared/components/organisms/ScreenContainer";
 //Components:
-import {SingleEliminationView,MatchTestView} from "components";
-import data from "data";
+import {SingleEliminationView,DoubleEiminationView,MatchTestView} from "components";
+import {data} from "shared";
 
 function HomeScreen({navigation}){
     return (
         <ScreenContainer>
-            <SingleEliminationView
-                data={data}
+            <DoubleEiminationView data={data.double}/>
+            {/* <SingleEliminationView
+                data={data.single}
                 stroke="orange"
                 strokeWidth={2}
                 //renderMatch={MatchTestView}
-            />
+            /> */}
         </ScreenContainer>
     );
 }

@@ -1,0 +1,16 @@
+Error: Calling synchronous methods on native modules is not supported in Chrome:
+    replace the block of code in node_modules/react-native/Libraries/BatchedBridge/MessageQueue.js by:
+        callNativeSyncHook(
+            moduleID: number,
+            methodID: number,
+            params: any[],
+            onFail: ?Function,
+            onSucc: ?Function,
+          ): any {
+            const isDebuggingEnabled = (typeof atob !== 'undefined');
+            this.processCallbacks(moduleID, methodID, params, onFail, onSucc);
+            if(!isDebuggingEnabled)
+            {
+              return global.nativeCallSyncHook(moduleID, methodID, params);
+            }
+        }

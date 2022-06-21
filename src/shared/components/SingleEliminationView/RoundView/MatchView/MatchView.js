@@ -10,9 +10,7 @@ export default function MatchView(props){
         isPlayed:status==="played",
     }).current,{isPlayed}=state;
     useEffect(()=>{
-        if(isPlayed){
-            onPlay&&onPlay(match);
-        }
+        onPlay&&onPlay(match);
     },[]);
     return (
         <View style={[css.matchview,props.style]}>

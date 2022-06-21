@@ -1,5 +1,9 @@
+import singledata from "./SingleData.json";
+import doubledata from "./DoubleData.json";
 
 
+export const data={single:singledata,double:doubledata};
+export const useId=(startsWith)=>(startsWith||"")+"_"+Math.random().toString(36).slice(2);
 export const areEqualArrays=(array0,array1)=>{
     let areEqual=true;
     const {length}=array0;
