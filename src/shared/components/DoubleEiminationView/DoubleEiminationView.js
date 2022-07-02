@@ -9,9 +9,10 @@ export default function DoubleEiminationView(props){
     const {onPlayMatch,data}=props,elimrounds=useRef([]).current;
     const [ready,setReady]=useState(false);
     useEffect(()=>{
-        elimrounds.forEach(setElimRound);
         console.log(elimrounds);
-        setReady(true);
+        //elimrounds.forEach(setElimRound);
+        //console.log(elimrounds);
+        //setReady(true);
     },[]);
     return (
         <ScrollView style={css.doubleeiminationview} contentContainerStyle={css.container}>
@@ -29,7 +30,7 @@ export default function DoubleEiminationView(props){
                 <SingleEliminationView {...props}
                     data={{title:"elimination",rounds:elimrounds,participants:data.participants}}
                     onPlayMatch={onPlayMatch&&((params)=>{
-                        params.round.isChampionship=true;
+                        params.round.isChampionship=false;
                         onPlayMatch(params);
                     })}
                 />
@@ -83,29 +84,34 @@ const getElimRoundMatches=({loserIds,matchrefs})=>{
     //Set match extra data using elimination object
     //Search for a match by index then participantIds then winnerId
     matchrefs&&matchrefs.forEach((matchref,i)=>{
-        let match;
-        const {index}=matchref;
-        if((-1<index)&&(index<length)){
-            match=matches[index];
-        }
-        else{
-            const {participantIds}=matchref;
-            if(Array.isArray(participantIds)&&participantIds.length){
-                match=matches.find(match=>participantIds.every(id=>match.participantIds.includes(id)));
-            }
-            if(!match){
-                const {winnerId}=matchref;
-                if(winnerId){
-                    match=matches.find(({participantIds})=>participantIds.includes(winnerId));
-                }
-            }
-        }
-        if((!match)&&((-1<i)&&(i<matchref.length))){
-            match=matches[i];
-        }
+        const match=findTargetMatch(matchref,i,matches);
         match&&Object.assign(match,matchref);
     });
     return matches;
+}
+
+const findTargetMatch=(matchref,i,matches)=>{
+    let match;
+    const {index}=matchref;
+    if((-1<index)&&(index<length)){
+        match=matches[index];
+    }
+    else{
+        const {participantIds}=matchref;
+        if(Array.isArray(participantIds)&&participantIds.length){
+            match=matches.find(match=>participantIds.every(id=>match.participantIds.includes(id)));
+        }
+        if(!match){
+            const {winnerId}=matchref;
+            if(winnerId){
+                match=matches.find(({participantIds})=>participantIds.includes(winnerId));
+            }
+        }
+    }
+    if((!match)&&((-1<i)&&(i<matchref.length))){
+        match=matches[i];
+    }
+    return match;
 }
 
 const setElimRounds=({elimrounds,params,data})=>{
@@ -123,8 +129,7 @@ const setElimRounds=({elimrounds,params,data})=>{
                 const roundi=round.index;
                 const refround=refrounds.find(({index})=>roundi===index)||refrounds[roundi];
                 const datai=refround&&refround.index;
-                if((datai===roundi)||(!datai)){
-                    refround
+                if((!datai)||(datai===roundi)){
                     Object.assign(elimround,refround);
                 }
             }
