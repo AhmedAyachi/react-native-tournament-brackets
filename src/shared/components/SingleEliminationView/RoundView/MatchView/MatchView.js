@@ -20,7 +20,7 @@ export default function MatchView(props){
             <View style={css.row1}>
                 {participants.map((participant,i)=>(
                     <ParticipantView
-                        style={{backgroundColor:isPlayed?(participant.isWinner?"green":"red"):"orangered"}}
+                        style={{backgroundColor:isPlayed?(participant&&participant.isWinner?"green":"red"):"orangered"}}
                         key={`participant${i+1}`}
                         participant={participant||noparticipant}
                         label={isPlayed&&(participant.isWinner?"win":"loss")}

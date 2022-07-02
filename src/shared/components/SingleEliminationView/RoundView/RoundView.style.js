@@ -6,13 +6,10 @@ const css=StyleSheet.create({
     roundview:{
         alignItems:"center",
         paddingHorizontal:0.2*rem,
-        //marginHorizontal:0.25*rem,
-        backgroundColor:"rgba(0,0,0,0.05)",
     },
     row0:{
         width:"100%",
         paddingVertical:1*rem,
-        //paddingHorizontal:2*rem,
     },
     row1:{
         flex:1,

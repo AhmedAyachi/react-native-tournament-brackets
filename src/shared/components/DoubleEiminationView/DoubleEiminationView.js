@@ -1,7 +1,7 @@
 import React,{useRef,useEffect,useState} from "react";
-import {ScrollView} from "react-native";
+import {View,Text,ScrollView} from "react-native";
 import css from "./DoubleEiminationView.style";
-import SingleEliminationView from "../SingleEliminationView/SingleEliminationView";
+import SectionView from "./SectionView/SectionView";
 import {useId} from "shared";
 
 
@@ -9,15 +9,15 @@ export default function DoubleEiminationView(props){
     const {onPlayMatch,data}=props,elimrounds=useRef([]).current;
     const [ready,setReady]=useState(false);
     useEffect(()=>{
-        console.log(elimrounds);
-        //elimrounds.forEach(setElimRound);
         //console.log(elimrounds);
-        //setReady(true);
+        setElimRoundsMatches(elimrounds);
+        console.log(elimrounds,data.participants);
+        setReady(true);
     },[]);
     return (
-        <ScrollView style={css.doubleeiminationview} contentContainerStyle={css.container}>
-            <SingleEliminationView {...props}
-                data={{...data.championship,participants:data.participants}}
+        <ScrollView style={[css.doubleeiminationview,props.style]} contentContainerStyle={css.container}>
+            <SectionView {...props}
+                data={{title:"championship",...data.championship,participants:data.participants}}
                 onPlayMatch={(params)=>{
                     setElimRounds({elimrounds,params,data});
                     if(ready&&onPlayMatch){
@@ -27,7 +27,8 @@ export default function DoubleEiminationView(props){
                 }}
             />
             {ready&&
-                <SingleEliminationView {...props}
+                <SectionView {...props}
+                    isElimination={true}
                     data={{title:"elimination",rounds:elimrounds,participants:data.participants}}
                     onPlayMatch={onPlayMatch&&((params)=>{
                         params.round.isChampionship=false;
@@ -39,11 +40,24 @@ export default function DoubleEiminationView(props){
     )
 }
 
-const setElimRound=(elimround,i)=>{
-    const {loserIds}=elimround,matchrefs=elimround.matches;
-    elimround.matches=i?[]:getElimRoundMatches({loserIds,matchrefs});
-    delete elimround.loserIds;
-    elimround.id=`e${elimround.id}`;
+const setElimRoundsMatches=(elimrounds)=>{
+    elimrounds.forEach((elimround,i)=>{
+        const {loserIds}=elimround,matchrefs=elimround.matches;
+        if(i){
+            const {matches}=elimrounds[i-1];
+            const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
+            prevloserIds.forEach((preloserId,i)=>{
+                loserIds.splice(2*i+1,0,preloserId);
+            });
+            elimround.matches=getElimRoundMatches({loserIds,matchrefs});
+        }
+        else{
+            elimround.matches=getElimRoundMatches({loserIds,matchrefs});
+        }
+    
+        delete elimround.loserIds;
+        elimround.id=`e${elimround.id}`;
+    });
 }
 
 const getElimRoundMatches=({loserIds,matchrefs})=>{
@@ -78,7 +92,7 @@ const getElimRoundMatches=({loserIds,matchrefs})=>{
     loserIds.forEach((loserId,i)=>{
         const match=matches[Math.floor(i/2)],{participantIds}=match;
         if(participantIds.length<2){
-            participantIds.push(loserId?loserId:loserIds[(i+3)%loserIds.length]);
+            participantIds.push(loserId);
         }
     });
     //Set match extra data using elimination object
@@ -116,7 +130,8 @@ const findTargetMatch=(matchref,i,matches)=>{
 
 const setElimRounds=({elimrounds,params,data})=>{
     const {match:{participants},round}=params,{id}=round,elimround=elimrounds.find(round=>round.id===id);
-    const loser=participants.find(participant=>participant&&!participant.isWinner);
+    const matchPlayed=participants.some(participant=>participant&&participant.isWinner);
+    const loser=matchPlayed&&participants.find(participant=>participant&&!participant.isWinner);
     const loserId=loser&&loser.id;
     if(elimround){
         elimround.loserIds.push(loserId);
