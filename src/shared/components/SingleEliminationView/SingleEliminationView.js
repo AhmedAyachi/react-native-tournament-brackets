@@ -60,7 +60,7 @@ const getGenuineRounds=(rounds)=>{
         const first=rounds[0],{matches}=first;
         if(Array.isArray(matches)){
             const {length}=matches;
-            let size=Math.floor((Math.log(length)/Math.log(2)))+1;
+            let size=Math.floor(Math.log2(length))+1;
             genuine=roundlength===size?rounds:rounds.slice(0,size);
             size=2**(size-1);
             first.matches=length===size?matches:matches.slice(0,size);

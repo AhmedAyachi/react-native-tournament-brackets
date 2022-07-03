@@ -9,7 +9,6 @@ export default function DoubleEiminationView(props){
     const {onPlayMatch,data}=props,elimrounds=useRef([]).current;
     const [ready,setReady]=useState(false);
     useEffect(()=>{
-        //console.log(elimrounds);
         setElimRoundsMatches(elimrounds);
         console.log(elimrounds,data.participants);
         setReady(true);
@@ -41,21 +40,28 @@ export default function DoubleEiminationView(props){
 }
 
 const setElimRoundsMatches=(elimrounds)=>{
+    let champroundi=1;
     elimrounds.forEach((elimround,i)=>{
         const {loserIds}=elimround,matchrefs=elimround.matches;
         if(i){
-            const {matches}=elimrounds[i-1];
-            const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
-            prevloserIds.forEach((preloserId,i)=>{
-                loserIds.splice(2*i+1,0,preloserId);
-            });
+            console.log(`round ${i}`,[...loserIds]);
+            const {matches}=elimrounds[champroundi-1];
+            //it should be divided by 2 (number of participants per match) but as it's log2 division won't actually make a difference;
+            const newlength=Math.log2(matches.length+loserIds.length/* all devided by 2 */);
+            if(newlength===Math.floor(newlength)){
+                const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
+                prevloserIds.forEach((prevloserId,i)=>{
+                    loserIds.splice(2*i+1,0,prevloserId);
+                });
+                champroundi++;
+            }
             elimround.matches=getElimRoundMatches({loserIds,matchrefs});
         }
         else{
             elimround.matches=getElimRoundMatches({loserIds,matchrefs});
         }
     
-        delete elimround.loserIds;
+        //delete elimround.loserIds;
         elimround.id=`e${elimround.id}`;
     });
 }
