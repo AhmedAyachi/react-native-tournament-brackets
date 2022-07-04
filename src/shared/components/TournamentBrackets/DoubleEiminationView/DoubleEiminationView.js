@@ -2,14 +2,15 @@ import React,{useRef,useEffect,useState} from "react";
 import {ScrollView} from "react-native";
 import css from "./DoubleEiminationView.style";
 import SectionView from "./SectionView/SectionView";
-import {useId,isLog2,getRoundTitle} from "../index";
+import {useId,isLog2,getRoundTitle} from "../index";//length
 
 
 export default function DoubleEiminationView(props){
     const {onPlayMatch,data}=props,elimrounds=useRef([]).current;
     const [ready,setReady]=useState(false);
     useEffect(()=>{
-        setElimRoundsMatches(elimrounds);
+        const {elimination}=data;
+        setElimRoundsMatches(elimrounds,elimination);
         setReady(true);
     },[]);
     return (
@@ -17,7 +18,7 @@ export default function DoubleEiminationView(props){
             <SectionView {...props}
                 data={{title:"championship",...data.championship,participants:data.participants}}
                 onPlayMatch={(params)=>{
-                    setElimRounds({elimrounds,params,data});
+                    setElimRounds({elimrounds,params});
                     if(ready&&onPlayMatch){
                         params.round.isChampionship=true;
                         onPlayMatch(params);
@@ -38,10 +39,9 @@ export default function DoubleEiminationView(props){
     )
 }
 
-const setElimRoundsMatches=(elimrounds)=>{
+const setElimRoundsMatches=(elimrounds,elimination)=>{
     for(let i=0;i<elimrounds.length;i++){
-        let elimround=elimrounds[i];
-        const {loserIds}=elimround,matchrefs=elimround.matches;
+        let elimround=elimrounds[i],{loserIds}=elimround;
         if(i){
             const {matches}=elimrounds[i-1];
             const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
@@ -49,21 +49,15 @@ const setElimRoundsMatches=(elimrounds)=>{
                 prevloserIds.forEach((prevloserId,i)=>{
                     loserIds.splice(2*i+1,0,prevloserId);
                 });
-                elimround.matches=getElimRoundMatches({loserIds,matchrefs});
-                delete elimround.loserIds;
             }
             else{
-                const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
-                elimround={id:`b${elimround.id}`};
-                elimround.matches=getElimRoundMatches({loserIds:prevloserIds,matchrefs});
+                elimround={id:`b${elimround.id}`,matches:null};
+                loserIds=prevloserIds;
                 elimrounds.splice(i,0,elimround);
             }
         }
-        else{
-            elimround.matches=getElimRoundMatches({loserIds,matchrefs});
-            delete elimround.loserIds;
-        }
-        elimround.id=`e${elimround.id}`;
+        setElimRound(elimround,i,elimination);
+        elimround.matches=getElimRoundMatches({loserIds,matchrefs:elimround.matches});
     }
     const max=elimrounds.length+1;
     elimrounds.forEach((elimround,i)=>{
@@ -71,6 +65,18 @@ const setElimRoundsMatches=(elimrounds)=>{
             elimround.title=getRoundTitle(i,max);
         }
     });
+}
+
+const setElimRound=(elimround,i,elimination)=>{
+    if(elimination){
+        const roundrefs=elimination.rounds;
+        if(Array.isArray(roundrefs)&&roundrefs.length){
+            const roundref=roundrefs.find(({index})=>(typeof(index)==="number")&&(i===index))||roundrefs[i];
+            roundref&&Object.assign(elimround,roundref);
+        }
+    }
+    //delete elimround.loserIds;
+    elimround.id=`e${elimround.id}`;
 }
 
 const getElimRoundMatches=({loserIds,matchrefs})=>{
@@ -88,10 +94,13 @@ const getElimRoundMatches=({loserIds,matchrefs})=>{
             participantIds.push(loserId);
         }
     });
-    //Set match extra data using elimination object
+    //Set match extra data using user elimination object
     matchrefs&&matchrefs.forEach((matchref,i)=>{
         const match=findTargetMatch(matchref,i,matches);
-        match&&Object.assign(match,matchref);
+        if(match){
+            delete matchref.participantIds;
+            Object.assign(match,matchref);
+        }
     });
     return matches;
 }
@@ -116,7 +125,6 @@ const sortLoserIds=(loserIds,matchrefs)=>{
                     }
                 });
             }
-            delete matchref.participantIds;
         }
     });
 }
@@ -124,7 +132,7 @@ const sortLoserIds=(loserIds,matchrefs)=>{
 const findTargetMatch=(matchref,i,matches)=>{
     let match;
     const {index}=matchref;
-    if((-1<index)&&(index<length)){
+    if((-1<index)&&(index<matches.length)){
         match=matches[index];
     }
     else{
@@ -145,7 +153,7 @@ const findTargetMatch=(matchref,i,matches)=>{
     return match;
 }
 
-const setElimRounds=({elimrounds,params,data})=>{
+const setElimRounds=({elimrounds,params})=>{
     const {match:{participants},round}=params,{id}=round,elimround=elimrounds.find(round=>round.id===id);
     const matchPlayed=participants.some(participant=>participant&&participant.isWinner);
     const loser=matchPlayed&&participants.find(participant=>participant&&!participant.isWinner);
@@ -154,18 +162,7 @@ const setElimRounds=({elimrounds,params,data})=>{
         elimround.loserIds.push(loserId);
     }
     else{
-        const elimround={id,loserIds:[loserId]},{elimination}=data;
-        if(elimination){
-            const refrounds=elimination.rounds;
-            if(Array.isArray(refrounds)&&refrounds.length){
-                const roundi=round.index;
-                const refround=refrounds.find(({index})=>roundi===index)||refrounds[roundi];
-                const datai=refround&&refround.index;
-                if((!datai)||(datai===roundi)){
-                    Object.assign(elimround,refround);
-                }
-            }
-        }
+        const elimround={id,loserIds:[loserId]};
         elimrounds.push(elimround);
     }
 }

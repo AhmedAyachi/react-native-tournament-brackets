@@ -23,7 +23,7 @@ export default function MatchView(props){
                         style={{backgroundColor:isPlayed?(participant&&participant.isWinner?"green":"red"):"orangered"}}
                         key={`participant${i+1}`}
                         participant={participant||noparticipant}
-                        label={isPlayed&&(participant.isWinner?"win":"loss")}
+                        label={isPlayed&&(participant&&participant.isWinner?"win":"loss")}
                     />
                 ))}
                 <Text style={css.status} numberOfLines={1}>{isPlayed?"":status}</Text>
