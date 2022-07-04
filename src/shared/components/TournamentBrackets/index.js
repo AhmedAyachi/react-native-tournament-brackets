@@ -52,3 +52,24 @@ export const isLog2=(number)=>{
     const log2=Math.log2(number /* devided by 2 */);
     return log2===Math.floor(log2);
 }
+
+export const getRoundTitle=(index,length)=>{
+    let title;
+    if(index){
+        if(length){
+            if(length&&(index===(length-1))){
+                title="final";
+            }
+            else if(index===(length-2)){
+                title="Semi-Final"
+            }
+        }
+        if(!title){
+            title=`1/${length-index} final`;
+        }
+    }
+    else{
+        title="first round";
+    }
+    return title;
+}

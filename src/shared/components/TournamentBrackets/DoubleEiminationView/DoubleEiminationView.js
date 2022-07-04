@@ -2,7 +2,7 @@ import React,{useRef,useEffect,useState} from "react";
 import {ScrollView} from "react-native";
 import css from "./DoubleEiminationView.style";
 import SectionView from "./SectionView/SectionView";
-import {useId,isLog2} from "../index";
+import {useId,isLog2,getRoundTitle} from "../index";
 
 
 export default function DoubleEiminationView(props){
@@ -40,7 +40,7 @@ export default function DoubleEiminationView(props){
 
 const setElimRoundsMatches=(elimrounds)=>{
     for(let i=0;i<elimrounds.length;i++){
-        const elimround=elimrounds[i];
+        let elimround=elimrounds[i];
         const {loserIds}=elimround,matchrefs=elimround.matches;
         if(i){
             const {matches}=elimrounds[i-1];
@@ -54,9 +54,9 @@ const setElimRoundsMatches=(elimrounds)=>{
             }
             else{
                 const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
-                const bridgeround={id:`b${elimround.id}`,title:`bridge to ${elimround.title}`};
-                bridgeround.matches=getElimRoundMatches({loserIds:prevloserIds,matchrefs});
-                elimrounds.splice(i,0,bridgeround);
+                elimround={id:`b${elimround.id}`};
+                elimround.matches=getElimRoundMatches({loserIds:prevloserIds,matchrefs});
+                elimrounds.splice(i,0,elimround);
             }
         }
         else{
@@ -65,6 +65,12 @@ const setElimRoundsMatches=(elimrounds)=>{
         }
         elimround.id=`e${elimround.id}`;
     }
+    const max=elimrounds.length+1;
+    elimrounds.forEach((elimround,i)=>{
+        if(!elimround.title){
+            elimround.title=getRoundTitle(i,max);
+        }
+    });
 }
 
 const getElimRoundMatches=({loserIds,matchrefs})=>{
@@ -74,7 +80,25 @@ const getElimRoundMatches=({loserIds,matchrefs})=>{
     }));
     matchrefs=Array.isArray(matchrefs)&&matchrefs.length&&matchrefs.filter(matchref=>matchref&&(typeof(matchref)==="object"));
     //Set loserIds order using elimination object
-    matchrefs&&matchrefs.forEach(matchref=>{
+    matchrefs&&sortLoserIds(loserIds,matchrefs);
+    //Set matches participantIds property
+    loserIds.forEach((loserId,i)=>{
+        const match=matches[Math.floor(i/2)],{participantIds}=match;
+        if(participantIds.length<2){
+            participantIds.push(loserId);
+        }
+    });
+    //Set match extra data using elimination object
+    matchrefs&&matchrefs.forEach((matchref,i)=>{
+        const match=findTargetMatch(matchref,i,matches);
+        match&&Object.assign(match,matchref);
+    });
+    return matches;
+}
+
+const sortLoserIds=(loserIds,matchrefs)=>{
+    const length=Math.round(loserIds.length/2);
+    matchrefs.forEach(matchref=>{
         const {index}=matchref;
         if(index<length){
             const {participantIds}=matchref;
@@ -95,22 +119,8 @@ const getElimRoundMatches=({loserIds,matchrefs})=>{
             delete matchref.participantIds;
         }
     });
-    //Set matches participantIds property
-    loserIds.forEach((loserId,i)=>{
-        const match=matches[Math.floor(i/2)],{participantIds}=match;
-        if(participantIds.length<2){
-            participantIds.push(loserId);
-        }
-    });
-    //Set match extra data using elimination object
-    //Search for a match by index then participantIds then winnerId
-    matchrefs&&matchrefs.forEach((matchref,i)=>{
-        const match=findTargetMatch(matchref,i,matches);
-        match&&Object.assign(match,matchref);
-    });
-    return matches;
 }
-
+//Search for a match by index then participantIds then winnerId
 const findTargetMatch=(matchref,i,matches)=>{
     let match;
     const {index}=matchref;
@@ -144,7 +154,7 @@ const setElimRounds=({elimrounds,params,data})=>{
         elimround.loserIds.push(loserId);
     }
     else{
-        const elimround={id,title:round.title,loserIds:[loserId]},{elimination}=data;
+        const elimround={id,loserIds:[loserId]},{elimination}=data;
         if(elimination){
             const refrounds=elimination.rounds;
             if(Array.isArray(refrounds)&&refrounds.length){
