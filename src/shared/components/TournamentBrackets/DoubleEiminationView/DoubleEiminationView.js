@@ -2,7 +2,7 @@ import React,{useRef,useEffect,useState} from "react";
 import {ScrollView} from "react-native";
 import css from "./DoubleEiminationView.style";
 import SectionView from "./SectionView/SectionView";
-import {useId,isLog2} from "shared";
+import {useId,isLog2} from "../index";
 
 
 export default function DoubleEiminationView(props){

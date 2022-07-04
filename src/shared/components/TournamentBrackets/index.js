@@ -1,6 +1,33 @@
 
 
 export const useId=(startsWith)=>(startsWith||"")+"_"+Math.random().toString(36).slice(2);
+
+export const getMatchData=(matchref,data,opponents)=>{
+    const match={...matchref},participantIds=opponents?opponents:matchref.participantIds;
+    match.participants=participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)}));
+    if(participantIds.length>=2){
+        const {winnerId}=match;
+        const winner=winnerId&&match.participants.find(({id})=>id===winnerId);
+        if(winner){
+            winner.isWinner=true;
+            match.status="played";
+        }
+        else{
+            match.status="pending";
+        }
+    }
+    else{
+        const {participants}=match;
+        match.status="pending";
+        while(participants.length<2){
+            participants.push(null);
+        }
+    }
+    delete match.winnerId;
+    delete match.participantIds;
+    return match;
+}
+
 export const areEqualArrays=(array0,array1)=>{
     let areEqual=true;
     const {length}=array0;

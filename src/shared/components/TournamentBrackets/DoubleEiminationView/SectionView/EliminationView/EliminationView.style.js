@@ -4,9 +4,11 @@ import {rem,border} from "css";
 const css=StyleSheet.create({
     eliminationview:{
         width:"100%",
+        height:"100%",
     },
     container:{
-        flex:1,
+        justifyContent:"flex-start",
+        alignItems:"flex-start",
     },
 });
 

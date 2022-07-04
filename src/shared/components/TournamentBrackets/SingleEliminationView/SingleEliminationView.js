@@ -2,6 +2,7 @@ import React from "react";
 import {ScrollView} from "react-native";
 import css from "./SingleEliminationView.style";
 import RoundView from "../RoundView/RoundView";
+import {getMatchData} from "../index";
 
 
 export default function SingleEliminationView(props){
@@ -68,31 +69,6 @@ const getGenuineRounds=(rounds)=>{
         
     }
     return genuine||[];
-}
-
-const getMatchData=(matchref,data,opponents)=>{
-    const match={...matchref},participantIds=opponents?opponents:matchref.participantIds;
-    match.participants=participantIds.map(participantId=>({...data.participants.find(participant=>participant.id===participantId)}));
-    if(participantIds.length>=2){
-        const winner=match.participants.find(({id})=>id===match.winnerId);
-        if(winner){
-            winner.isWinner=true;
-            match.status="played";
-        }
-        else{
-            match.status="pending";
-        }
-    }
-    else{
-        const {participants}=match;
-        match.status="pending";
-        while(participants.length<2){
-            participants.push(null);
-        }
-    }
-    delete match.winnerId;
-    delete match.participantIds;
-    return match;
 }
 
 const getNextRoundopponentIds=(matches)=>{
