@@ -10,6 +10,9 @@ const css=StyleSheet.create({
     container:{
         width:"100%",
     },
+    singleeliminationview:{
+        height:"auto",
+    },
 });
 
 export default css;
