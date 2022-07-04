@@ -19,14 +19,14 @@ export default function EliminationView(props){
                 return (
                     <RoundView
                         key={i}
-                        round={round}
+                        round={round} connected={i}
+                        renderMatch={props.renderMatch}
                         connectorStyle={{
                             straight,
                             height:straight?100:height,
                             strokeWidth:(props.strokeWidth||3)/(straight?1:(index-1)),
                             stroke:props.stroke,
                         }}
-                        connected={i}
                     />
                 )
             })}

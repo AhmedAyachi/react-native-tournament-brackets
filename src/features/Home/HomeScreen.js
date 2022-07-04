@@ -11,12 +11,17 @@ import {data} from "shared";
 function HomeScreen({navigation}){
     return (
         <ScreenContainer>
-            <DoubleEiminationView data={data.double}/>
+            <DoubleEiminationView
+                data={data.double}
+                stroke="orange"
+                strokeWidth={2}
+                //renderMatch={MatchTestView}
+            />
             {/* <SingleEliminationView
                 data={data.single}
                 stroke="orange"
                 strokeWidth={2}
-                //renderMatch={MatchTestView}
+                //
             /> */}
         </ScreenContainer>
     );
