@@ -7,6 +7,7 @@ const css=StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-start",
         alignItems:"flex-start",
+        backgroundColor:"blue",
     },
 });
 

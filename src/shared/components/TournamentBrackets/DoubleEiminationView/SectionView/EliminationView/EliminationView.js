@@ -1,15 +1,15 @@
 import React from "react";
-import {ScrollView} from "react-native";
+import {View} from "react-native";
 import css from "./EliminationView.style";
 import RoundView from "../../../RoundView/RoundView";
 
 
 export default function EliminationView(props){
-    const {rounds}=props;
+    const {data}=props,{rounds}=data;
     let height=25;
     let index=0;
     return (
-        <ScrollView style={css.eliminationview} contentContainerStyle={css.container} horizontal={true}>
+        <View style={[css.eliminationview,props.style]}>
             {rounds.map((round,i)=>{
                 const straight=i&&rounds[i-1].matches.length===round.matches.length;
                 if(!straight){
@@ -30,6 +30,6 @@ export default function EliminationView(props){
                     />
                 )
             })}
-        </ScrollView>
+        </View>
     )
 }

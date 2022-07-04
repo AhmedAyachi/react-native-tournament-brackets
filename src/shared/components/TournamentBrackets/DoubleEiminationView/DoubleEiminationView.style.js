@@ -4,11 +4,22 @@ import {rem,border} from "css";
 
 const css=StyleSheet.create({
     doubleeiminationview:{
-        maxWidth:"100%",
+        width:"100%",
+        height:"100%",
         //flexDirection:"column-reverse",
     },
     container:{
-        width:"100%",
+        justifyContent:"flex-start",
+        alignItems:"flex-start",
+    },
+    col0:{
+        height:"100%",
+        paddingTop:1*rem,
+    },
+    col1:{
+        width:5*rem,
+        height:"100%",
+        backgroundColor:"red",
     },
 });
 

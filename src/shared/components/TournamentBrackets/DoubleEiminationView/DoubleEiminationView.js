@@ -1,5 +1,5 @@
 import React,{useRef,useEffect,useState} from "react";
-import {ScrollView} from "react-native";
+import {ScrollView,View} from "react-native";
 import css from "./DoubleEiminationView.style";
 import SectionView from "./SectionView/SectionView";
 import {useId,isLog2,getRoundTitle,getMatchData} from "../index";//length
@@ -10,30 +10,35 @@ export default function DoubleEiminationView(props){
     const [ready,setReady]=useState(false);
     useEffect(()=>{
         setElimRoundsMatches(elimrounds,data);
-        //setReady(true);
+        setReady(true);
     },[]);
     return (
         <ScrollView style={[css.doubleeiminationview,props.style]} contentContainerStyle={css.container}>
-            <SectionView {...props}
-                data={{title:"championship",...data.championship,participants:data.participants}}
-                onPlayMatch={(params)=>{
-                    setElimRounds({elimrounds,params});
-                    if(ready&&onPlayMatch){
-                        params.round.isChampionship=true;
-                        onPlayMatch(params);
+            <ScrollView contentContainerStyle={css.container} horizontal={true}>
+                <View style={css.col0}>
+                    <SectionView {...props}
+                        data={{title:"championship",...data.championship,participants:data.participants}}
+                        onPlayMatch={(params)=>{
+                            setElimRounds({elimrounds,params});
+                            if(ready&&onPlayMatch){
+                                params.round.isChampionship=true;
+                                onPlayMatch(params);
+                            }
+                        }}
+                    />
+                    {ready&&
+                        <SectionView {...props}
+                            isElimination={true}
+                            data={{title:"elimination",rounds:elimrounds,participants:data.participants}}
+                            onPlayMatch={onPlayMatch&&((params)=>{
+                                params.round.isChampionship=false;
+                                onPlayMatch(params);
+                            })}
+                        />
                     }
-                }}
-            />
-            {ready&&
-                <SectionView {...props}
-                    isElimination={true}
-                    data={{title:"elimination",rounds:elimrounds,participants:data.participants}}
-                    onPlayMatch={onPlayMatch&&((params)=>{
-                        params.round.isChampionship=false;
-                        onPlayMatch(params);
-                    })}
-                />
-            }
+                </View>
+                <View style={css.col1}></View>
+            </ScrollView>
         </ScrollView>
     )
 }
@@ -65,7 +70,6 @@ const setElimRoundsMatches=(elimrounds,data)=>{
             elimround.title=getRoundTitle(i,max);
         }
         elimround.matches=elimround.matches.map(match=>getMatchData(match,data));
-        console.log(elimround);
     });
 }
 

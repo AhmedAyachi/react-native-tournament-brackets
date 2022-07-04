@@ -14,7 +14,6 @@ export default function SectionView(props){
             }
             {(isElimination?EliminationView:ChampionshipView)({
                 ...props,
-                rounds:data.rounds,
                 style:{backgroundColor:css.sectionview.backgroundColor},
             })}
         </View>
