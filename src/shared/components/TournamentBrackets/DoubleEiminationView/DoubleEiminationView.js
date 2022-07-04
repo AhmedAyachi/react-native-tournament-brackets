@@ -1,8 +1,8 @@
 import React,{useRef,useEffect,useState} from "react";
-import {View,Text,ScrollView} from "react-native";
+import {ScrollView} from "react-native";
 import css from "./DoubleEiminationView.style";
 import SectionView from "./SectionView/SectionView";
-import {useId} from "shared";
+import {useId,isLog2} from "shared";
 
 
 export default function DoubleEiminationView(props){
@@ -10,7 +10,6 @@ export default function DoubleEiminationView(props){
     const [ready,setReady]=useState(false);
     useEffect(()=>{
         setElimRoundsMatches(elimrounds);
-        console.log(elimrounds,data.participants);
         setReady(true);
     },[]);
     return (
@@ -40,30 +39,32 @@ export default function DoubleEiminationView(props){
 }
 
 const setElimRoundsMatches=(elimrounds)=>{
-    let champroundi=1;
-    elimrounds.forEach((elimround,i)=>{
+    for(let i=0;i<elimrounds.length;i++){
+        const elimround=elimrounds[i];
         const {loserIds}=elimround,matchrefs=elimround.matches;
         if(i){
-            console.log(`round ${i}`,[...loserIds]);
-            const {matches}=elimrounds[champroundi-1];
-            //it should be divided by 2 (number of participants per match) but as it's log2 division won't actually make a difference;
-            const newlength=Math.log2(matches.length+loserIds.length/* all devided by 2 */);
-            if(newlength===Math.floor(newlength)){
-                const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
+            const {matches}=elimrounds[i-1];
+            const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
+            if(isLog2(matches.length+loserIds.length)){
                 prevloserIds.forEach((prevloserId,i)=>{
                     loserIds.splice(2*i+1,0,prevloserId);
                 });
-                champroundi++;
+                elimround.matches=getElimRoundMatches({loserIds,matchrefs});
+                delete elimround.loserIds;
             }
-            elimround.matches=getElimRoundMatches({loserIds,matchrefs});
+            else{
+                const prevloserIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
+                const bridgeround={id:`b${elimround.id}`,title:`bridge to ${elimround.title}`};
+                bridgeround.matches=getElimRoundMatches({loserIds:prevloserIds,matchrefs});
+                elimrounds.splice(i,0,bridgeround);
+            }
         }
         else{
             elimround.matches=getElimRoundMatches({loserIds,matchrefs});
+            delete elimround.loserIds;
         }
-    
-        //delete elimround.loserIds;
         elimround.id=`e${elimround.id}`;
-    });
+    }
 }
 
 const getElimRoundMatches=({loserIds,matchrefs})=>{

@@ -1,7 +1,7 @@
 import React from "react";
 import {ScrollView} from "react-native";
 import css from "./SingleEliminationView.style";
-import RoundView from "./RoundView/RoundView";
+import RoundView from "../RoundView/RoundView";
 
 
 export default function SingleEliminationView(props){
@@ -55,8 +55,8 @@ const getRounds=(data)=>{
 
 const getGenuineRounds=(rounds)=>{
     let genuine;
-    const roundlength=rounds&&rounds.length;
-    if(Array.isArray(rounds)&&roundlength){
+    const roundlength=Array.isArray(rounds)&&rounds.length;
+    if(roundlength){
         const first=rounds[0],{matches}=first;
         if(Array.isArray(matches)){
             const {length}=matches;

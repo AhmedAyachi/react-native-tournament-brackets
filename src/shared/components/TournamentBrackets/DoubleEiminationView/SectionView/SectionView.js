@@ -2,6 +2,7 @@ import React from "react";
 import {View,Text} from "react-native";
 import css from "./SectionView.style";
 import SingleEliminationView from "../../SingleEliminationView/SingleEliminationView";
+import EliminationView from "./EliminationView/EliminationView";
 
 
 export default function SectionView(props){
@@ -11,12 +12,10 @@ export default function SectionView(props){
             {title&&
                 <Text style={css.title}>{title}</Text>
             }
-            <SingleEliminationView {...props}
-                style={{backgroundColor:css.sectionview.backgroundColor}}
-                //untilRoundIndex={isElimination&&0}
-                data={data}
-                onPlayMatch={onPlayMatch}
-            />
+            {(isElimination?EliminationView:SingleEliminationView)({
+                ...props,data,onPlayMatch,
+                style:{backgroundColor:css.sectionview.backgroundColor},
+            })}
         </View>
     )
 }
