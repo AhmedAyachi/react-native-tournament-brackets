@@ -1,32 +1,16 @@
 import React from "react";
 import {ScrollView} from "react-native";
 import css from "./SingleEliminationView.style";
-import RoundView from "../RoundView/RoundView";
+import ChampionshipView from "../ChampionshipView/ChampionshipView";
 import {getMatchData} from "../index";
 
 
 export default function SingleEliminationView(props){
-    const {data,onPlayMatch,untilRoundIndex}=props,rounds=getRounds(data);
-    let height=25;
+    const {data}=props,rounds=getRounds(data);
     return (
         <ScrollView style={[css.singleeliminationview,props.style]} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
-                {rounds.map((round,i)=>{
-                    height*=2;
-                    return ((untilRoundIndex===undefined)||(i<=untilRoundIndex))?<RoundView
-                        key={`round${i}`}
-                        round={round}
-                        connected={i>0}
-                        renderMatch={props.renderMatch}
-                        connectorStyle={{
-                            height,strokeWidth:(props.strokeWidth||3)/i,
-                            stroke:props.stroke,
-                        }}
-                        onPlayMatch={onPlayMatch&&((match)=>{
-                            onPlayMatch({match,round});
-                        })}
-                    />:<></>
-                })}
+                <ChampionshipView {...props} rounds={rounds}/>
             </ScrollView>
         </ScrollView>
     )

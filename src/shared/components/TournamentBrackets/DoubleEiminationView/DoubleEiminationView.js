@@ -2,16 +2,15 @@ import React,{useRef,useEffect,useState} from "react";
 import {ScrollView} from "react-native";
 import css from "./DoubleEiminationView.style";
 import SectionView from "./SectionView/SectionView";
-import {useId,isLog2,getRoundTitle} from "../index";//length
+import {useId,isLog2,getRoundTitle,getMatchData} from "../index";//length
 
 
 export default function DoubleEiminationView(props){
     const {onPlayMatch,data}=props,elimrounds=useRef([]).current;
     const [ready,setReady]=useState(false);
     useEffect(()=>{
-        const {elimination}=data;
-        setElimRoundsMatches(elimrounds,elimination);
-        setReady(true);
+        setElimRoundsMatches(elimrounds,data);
+        //setReady(true);
     },[]);
     return (
         <ScrollView style={[css.doubleeiminationview,props.style]} contentContainerStyle={css.container}>
@@ -39,7 +38,7 @@ export default function DoubleEiminationView(props){
     )
 }
 
-const setElimRoundsMatches=(elimrounds,elimination)=>{
+const setElimRoundsMatches=(elimrounds,data)=>{
     for(let i=0;i<elimrounds.length;i++){
         let elimround=elimrounds[i],{loserIds}=elimround;
         if(i){
@@ -56,6 +55,7 @@ const setElimRoundsMatches=(elimrounds,elimination)=>{
                 elimrounds.splice(i,0,elimround);
             }
         }
+        const {elimination}=data;
         setElimRound(elimround,i,elimination);
         elimround.matches=getElimRoundMatches({loserIds,matchrefs:elimround.matches});
     }
@@ -64,6 +64,8 @@ const setElimRoundsMatches=(elimrounds,elimination)=>{
         if(!elimround.title){
             elimround.title=getRoundTitle(i,max);
         }
+        elimround.matches=elimround.matches.map(match=>getMatchData(match,data));
+        console.log(elimround);
     });
 }
 
@@ -75,7 +77,7 @@ const setElimRound=(elimround,i,elimination)=>{
             roundref&&Object.assign(elimround,roundref);
         }
     }
-    //delete elimround.loserIds;
+    delete elimround.loserIds;
     elimround.id=`e${elimround.id}`;
 }
 
