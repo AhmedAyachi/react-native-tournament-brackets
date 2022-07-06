@@ -11,4 +11,4 @@ storiesOf("SingleEliminationBrackets",module).add("Custom",()=>(
         strokeWidth={2}
         renderMatch={MatchTestView}
     />
-))
+));

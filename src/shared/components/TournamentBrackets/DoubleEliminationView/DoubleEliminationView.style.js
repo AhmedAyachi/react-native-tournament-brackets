@@ -3,10 +3,10 @@ import {rem,border} from "css";
 
 
 const css=StyleSheet.create({
-    doubleeiminationview:{
+    doubleeliminationView:{
         width:"100%",
         height:"100%",
-        //flexDirection:"column-reverse",
+        backgroundColor:"rgba(0,0,0,0.05)",
     },
     container:{
         justifyContent:"flex-start",

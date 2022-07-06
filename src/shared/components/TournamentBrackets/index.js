@@ -7,7 +7,7 @@ export const getMatchData=(matchref,data,opponents)=>{
     match.participants=participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)}));
     if(participantIds.length>=2){
         const {winnerId}=match;
-        const winner=winnerId&&match.participants.find(({id})=>id===winnerId);
+        const winner=winnerId&&match.participants.find(participant=>participant&&(participant.id===winnerId));
         if(winner){
             winner.isWinner=true;
             match.status="played";

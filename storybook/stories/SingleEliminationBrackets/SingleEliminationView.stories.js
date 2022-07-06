@@ -6,4 +6,4 @@ import {data} from "shared";
 
 storiesOf("SingleEliminationBrackets",module).add("Default",()=>(
     <SingleEliminationView data={data.single}/>
-))
+));

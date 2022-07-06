@@ -1,11 +1,11 @@
 import React,{useRef,useEffect,useState} from "react";
 import {ScrollView,View} from "react-native";
-import css from "./DoubleEiminationView.style";
+import css from "./DoubleEliminationView.style";
 import SectionView from "./SectionView/SectionView";
 import {useId,isLog2,getRoundTitle,getMatchData} from "../index";//length
 
 
-export default function DoubleEiminationView(props){
+export default function DoubleEliminationView(props){
     const {onPlayMatch,data}=props,elimrounds=useRef([]).current;
     const [ready,setReady]=useState(false);
     useEffect(()=>{
@@ -13,7 +13,7 @@ export default function DoubleEiminationView(props){
         setReady(true);
     },[]);
     return (
-        <ScrollView style={[css.doubleeiminationview,props.style]} contentContainerStyle={css.container}>
+        <ScrollView style={[css.doubleeliminationView,props.style]} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
                 <View style={css.col0}>
                     <SectionView {...props}
@@ -153,7 +153,7 @@ const findTargetMatch=(matchref,i,matches)=>{
             }
         }
     }
-    if((!match)&&((-1<i)&&(i<matchref.length))){
+    if((!match)&&((-1<i)&&(i<matches.length))){
         match=matches[i];
     }
     return match;
