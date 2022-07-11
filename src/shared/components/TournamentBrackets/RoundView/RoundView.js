@@ -8,13 +8,11 @@ import ConnectorView from "./ConnectorView/ConnectorView";
 export default function RoundView(props){
     const {round,connected,connectorStyle,renderMatch}=props,{matches}=round;
     return (
-        <View style={css.roundview}>
+        <View style={[css.roundview,props.style]}>
             <View style={css.row0}>
-                <View style={css.header}>
-                    <Text style={css.title}>{round.title}</Text>
-                </View>
+                <Text style={css.title} numberOfLines={1} ellipsizeMode="clip">{round.title}</Text>
             </View>
-            <View style={[css.row1]}>
+            <View style={css.row1}>
                 {matches&&matches.map((match,i)=>(
                     <View style={css.section} key={`section${i}`}>
                         {connected?<ConnectorView {...connectorStyle}/>:<></>}

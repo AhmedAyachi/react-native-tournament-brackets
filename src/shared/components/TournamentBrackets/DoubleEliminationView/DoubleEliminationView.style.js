@@ -14,12 +14,13 @@ const css=StyleSheet.create({
     },
     col0:{
         height:"100%",
-        paddingTop:1*rem,
+        alignItems:"flex-end",
     },
     col1:{
-        width:5*rem,
-        height:"100%",
-        backgroundColor:"red",
+        height:"118%",
+        flexDirection:"row",
+        justifyContent:"center",
+        alignItems:"center",
     },
 });
 

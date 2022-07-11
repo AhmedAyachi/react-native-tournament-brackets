@@ -15,7 +15,7 @@ export default function MatchView(props){
     return (
         <View style={[css.matchview,props.style]}>
             <View style={css.row0}>
-                <Text style={css.date}>{match.date}</Text>
+                <Text style={css.date} numberOfLines={1} ellipsizeMode="clip">{match.date}</Text>
             </View>
             <View style={css.row1}>
                 {participants.map((participant,i)=>(

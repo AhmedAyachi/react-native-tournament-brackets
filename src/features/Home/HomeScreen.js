@@ -11,18 +11,18 @@ import {data} from "shared";
 function HomeScreen({navigation}){
     return (
         <ScreenContainer>
-            <DoubleEliminationView
+            {/* <DoubleEliminationView
                 data={data.double}
                 stroke="orange"
                 strokeWidth={2}
                 //renderMatch={MatchTestView}
-            />
-            {/* <SingleEliminationView
+            /> */}
+            <SingleEliminationView
                 data={data.single}
                 stroke="orange"
                 strokeWidth={2}
                 //
-            /> */}
+            />
         </ScreenContainer>
     );
 }

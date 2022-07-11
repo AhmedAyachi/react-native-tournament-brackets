@@ -2,23 +2,27 @@ import React from "react";
 import {View} from "react-native";
 import css from "./ChampionshipView.style";
 import RoundView from "../RoundView/RoundView";
-import {getMatchData} from "../index";
+import {getMatchData,getRoundTitle} from "../index";
 
 
 export default function ChampionshipView(props){
     const {data,onPlayMatch}=props,rounds=getRounds(data);
-    let height=25;
+    const lastindex=rounds.length-1;
     return (
-        <View style={[css.championshipview,props.style]}>
+        <View style={[css.championshipview,props.style]} onLayout={props.onLayout}>
             {rounds.map((round,i)=>{
-                height*=2;
+                const isLast=round.isLast=(i===lastindex);
                 return <RoundView
+                    style={isLast&&({flex:1})}
                     key={`round${i}`}
                     round={round}
-                    connected={i>0}
+                    connected={i}
                     renderMatch={props.renderMatch}
                     connectorStyle={{
-                        height,strokeWidth:(props.strokeWidth||3)/i,
+                        //width:isLast?0:undefined,
+                        style:{flex:1},
+                        height:25*(2**(i+1)),
+                        strokeWidth:(props.strokeWidth||3)/i,
                         stroke:props.stroke,
                     }}
                     onPlayMatch={onPlayMatch&&((match)=>{
@@ -40,7 +44,7 @@ const getRounds=(data)=>{
         }
         const round={
             id:`r${i}`,
-            title:`round ${i+1}`,
+            title:getRoundTitle(i,roundrefs.length),
             ...roundref,
             index:i,
             matches:matches.map((matchref,i)=>getMatchData(matchref,data,opponentIds&&opponentIds[i])),

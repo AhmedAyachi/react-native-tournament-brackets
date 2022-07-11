@@ -7,7 +7,7 @@ const css=StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         marginVertical:1*rem,
-        overflow:"hidden",
+        overflow:"visible",
     },
     row0:{
         width:"100%",
@@ -17,6 +17,7 @@ const css=StyleSheet.create({
     },
     date:{
         fontWeight:"700",
+
     },
     status:{
         fontWeight:"700",

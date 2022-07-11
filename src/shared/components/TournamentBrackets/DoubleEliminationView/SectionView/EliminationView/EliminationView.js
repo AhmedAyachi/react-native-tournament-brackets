@@ -5,9 +5,9 @@ import RoundView from "../../../RoundView/RoundView";
 
 
 export default function EliminationView(props){
-    const {data}=props,{rounds}=data;
-    let height=25;
-    let index=0;
+    const {data,onPlayMatch}=props,{rounds}=data;
+    let height=25,index=0;
+    const lastindex=rounds.length-1;
     return (
         <View style={[css.eliminationview,props.style]}>
             {rounds.map((round,i)=>{
@@ -16,17 +16,24 @@ export default function EliminationView(props){
                     height*=2;
                     index++;
                 }
+                const isFinal=round.isFinal=i===lastindex;
                 return (
                     <RoundView
+                        style={isFinal&&({flex:1})}
                         key={i}
                         round={round} connected={i}
                         renderMatch={props.renderMatch}
                         connectorStyle={{
+                            //width:isFinal?0:undefined,
+                            style:{flex:1},
                             straight,
                             height:straight?100:height,
                             strokeWidth:(props.strokeWidth||3)/(straight?1:(index-1)),
                             stroke:props.stroke,
                         }}
+                        onPlayMatch={onPlayMatch&&((match)=>{
+                            onPlayMatch({match,round});
+                        })}
                     />
                 )
             })}

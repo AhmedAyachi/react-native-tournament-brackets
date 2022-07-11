@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {border,rem} from "css";
+import {rem} from "css";
 
 
 const css=StyleSheet.create({
@@ -9,28 +9,26 @@ const css=StyleSheet.create({
     },
     row0:{
         width:"100%",
-        paddingVertical:1*rem,
     },
     row1:{
+        width:"100%",
         flex:1,
         justifyContent:"space-around",
-        alignItems:"center",
-    },
-    header:{
-        width:"100%",
-        paddingVertical:0.5*rem,
-        paddingHorizontal:1*rem,
-        backgroundColor:"rgba(0,0,0,0.15)",
-        borderRadius:0.2*rem,
+        alignItems:"stretch",
     },
     title:{
+        width:"100%",
         textTransform:"capitalize",
         fontWeight:"700",
         textAlign:"center",
+        paddingVertical:0.5*rem,
+        paddingHorizontal:1*rem,
+        borderRadius:0.2*rem,
+        backgroundColor:"rgba(0,0,0,0.15)",
     },
     section:{
         flexDirection:"row",
-        justifyContent:"center",
+        justifyContent:"space-between",
         alignItems:"center",
     },
 });

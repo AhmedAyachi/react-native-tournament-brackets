@@ -54,22 +54,11 @@ export const isLog2=(number)=>{
 }
 
 export const getRoundTitle=(index,length)=>{
-    let title;
-    if(index){
-        if(length){
-            if(length&&(index===(length-1))){
-                title="final";
-            }
-            else if(index===(length-2)){
-                title="Semi-Final"
-            }
-        }
-        if(!title){
-            title=`1/${length-index} final`;
-        }
+    const frac=length-1-index;
+    switch(frac){
+        case 0:return "final";
+        case 1:return "semi-Finals";
+        case 2:return "quarter-Finals";
+        default:return `1/${2**frac}-Finals`
     }
-    else{
-        title="first round";
-    }
-    return title;
 }

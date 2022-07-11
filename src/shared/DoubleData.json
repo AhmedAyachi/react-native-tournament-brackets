@@ -3,7 +3,6 @@
         "dateformat":"dd/mm/yyyy",
         "rounds":[
             {
-                "title":"first round",
                 "matches":[
                     {
                         "id":"m0",
@@ -56,7 +55,6 @@
                 ]
             },
             {
-                "title":"1/4 final",
                 "matches":[
                     {
                         "id":"m8",
@@ -81,7 +79,6 @@
                 ]
             },
             {
-                "title":"semi-final",
                 "matches":[
                     {
                         "id":"m12",
@@ -96,7 +93,6 @@
                 ]
             },
             {
-                "title":"final",
                 "matches":[
                     {
                         "id":"m14",
@@ -138,6 +134,11 @@
                 ]
             }
         ]
+    },
+    "final":{
+        "match":{
+            "date":"30/11/2022"
+        }
     },
     "participants":[
         {
