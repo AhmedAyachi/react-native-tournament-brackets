@@ -24,10 +24,10 @@ export default function EliminationView(props){
                         round={round} connected={i}
                         renderMatch={props.renderMatch}
                         connectorStyle={{
-                            //width:isFinal?0:undefined,
-                            style:{flex:1},
+                            width:isFinal?0:undefined,
+                            //style:{flex:1},
                             straight,
-                            height:straight?100:height,
+                            height:straight?undefined:height,
                             strokeWidth:(props.strokeWidth||3)/(straight?1:(index-1)),
                             stroke:props.stroke,
                         }}

@@ -2,7 +2,7 @@ import React from "react";
 import {View} from "react-native";
 import css from "./ChampionshipView.style";
 import RoundView from "../RoundView/RoundView";
-import {getMatchData,getRoundTitle} from "../index";
+import {getMatchData,getRoundTitle,setRoundData,getRoundMatches} from "../index";
 
 
 export default function ChampionshipView(props){
@@ -19,7 +19,7 @@ export default function ChampionshipView(props){
                     connected={i}
                     renderMatch={props.renderMatch}
                     connectorStyle={{
-                        //width:isLast?0:undefined,
+                        width:isLast?0:undefined,
                         style:{flex:1},
                         height:25*(2**(i+1)),
                         strokeWidth:(props.strokeWidth||3)/i,
@@ -35,28 +35,32 @@ export default function ChampionshipView(props){
 }
 
 const getRounds=(data)=>{
-    const roundrefs=getGenuineRounds(data.rounds);
-    let opponentIds=null;
-    return roundrefs.map((roundref,i)=>{
-        let {matches}=roundref;
-        if(opponentIds){
-            matches=getSortedMatches(matches,opponentIds);
+    const {participants}=data;
+    const rounds=new Array(Math.floor(Math.log2(participants&&participants.length))).fill(null).map(()=>({}));
+    for(let i=0;i<rounds.length;i++){
+        const round=rounds[i];
+        let participantIds=null;
+        if(i){
+            const {matches}=rounds[i-1];
+            participantIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
         }
-        const round={
-            id:`r${i}`,
-            title:getRoundTitle(i,roundrefs.length),
-            ...roundref,
-            index:i,
-            matches:matches.map((matchref,i)=>getMatchData(matchref,data,opponentIds&&opponentIds[i])),
-        };
-        if(round.matches.length>1){
-            opponentIds=getNextRoundopponentIds(round.matches);
+        else{
+            participantIds=data.participants.map(({id})=>id);
         }
-        return round;
+        setRoundData(round,i,data);
+        round.matches=getRoundMatches({participantIds,matchrefs:round.matches});
+    }
+    const max=rounds.length;
+    rounds.forEach((round,i)=>{
+        if(!round.title){
+            round.title=getRoundTitle(i,max);
+        }
+        round.matches=round.matches.map(match=>getMatchData(match,data));
     });
+    return rounds;
 };
 
-const getGenuineRounds=(rounds)=>{
+/* const getGenuineRounds=(rounds)=>{
     let genuine;
     const roundlength=Array.isArray(rounds)&&rounds.length;
     if(roundlength){
@@ -71,24 +75,4 @@ const getGenuineRounds=(rounds)=>{
         
     }
     return genuine||[];
-}
-
-const getNextRoundopponentIds=(matches)=>{
-    const nextRoundopponents=new Array(Math.round(matches.length/2)).fill(null).map(()=>[]);
-    const excludedmatchIds=[];
-    matches.forEach((match,i)=>{
-        const winner=match.participants.find((participant)=>participant&&participant.isWinner);
-        if(winner){
-            nextRoundopponents[Math.floor(i/2)].push(winner.id);
-        }
-        else{
-            excludedmatchIds.push(i+1);
-        }
-    });
-    return nextRoundopponents;
-}
-
-const getSortedMatches=(matches=[],idpairs=[])=>{
-    const sorted=idpairs.map((idpair,i)=>matches.find(match=>idpair.includes(match.winnerId))||matches[i]);
-    return sorted;
-}
+} */

@@ -14,7 +14,7 @@ const css=StyleSheet.create({
         width:"100%",
         flex:1,
         justifyContent:"space-around",
-        alignItems:"stretch",
+        alignItems:"flex-start",
     },
     title:{
         width:"100%",
@@ -28,7 +28,7 @@ const css=StyleSheet.create({
     },
     section:{
         flexDirection:"row",
-        justifyContent:"space-between",
+        justifyContent:"center",
         alignItems:"center",
     },
 });
