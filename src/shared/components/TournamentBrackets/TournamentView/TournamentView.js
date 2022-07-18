@@ -28,7 +28,7 @@ export default function TournamentView(props){
                             //width:isLast?0:undefined,
                             //style:{flex:1},
                             straight,
-                            height:straight?undefined:25*(2**(index+1)),
+                            height:straight?undefined:30*(2**(index+1)),
                             strokeWidth:(props.strokeWidth||3)/(straight?1:(index)),
                             stroke:props.stroke,
                         }}
