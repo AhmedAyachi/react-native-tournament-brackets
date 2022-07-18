@@ -23,20 +23,24 @@ export const getChampionShipRounds=(data)=>{
 
 export const setRoundData=(round,i,data)=>{
     if(data){
-        const roundref=getRoundRef(i,data.rounds);
+        let roundref=null;
+        const {rounds}=data;
+        if(Array.isArray(rounds)&&rounds.length){
+            roundref=rounds.find(({index})=>(typeof(index)==="number")&&(i===index))||rounds[i];
+        }
         roundref&&Object.assign(round,roundref);
     }
     round.id=`r${i}`;
     round.index=i;
 }
 
-const getRoundRef=(i,roundrefs)=>{
+/* const getRoundRef=(i,roundrefs)=>{
     let roundref=null;
     if(Array.isArray(roundrefs)&&roundrefs.length){
         roundref=roundrefs.find(({index})=>(typeof(index)==="number")&&(i===index))||roundrefs[i];
     }
     return roundref;
-}
+} */
 
 export const getRoundMatches=({participantIds,matchrefs})=>{
     const length=Math.round(participantIds.length/2),matches=new Array(length).fill(null).map(()=>({
@@ -149,9 +153,9 @@ export const getMatchData=(matchref,data,opponents)=>{
 }
 
 export const areEqualArrays=(array0,array1)=>{
-    let areEqual=true;
     const {length}=array0;
-    if(length===array1.length){
+    let areEqual=(length===array1.length);
+    if(areEqual){
         let i=0;
         while(areEqual&&(i<length)){
             if(!array1.includes(array0[i])){
@@ -159,9 +163,6 @@ export const areEqualArrays=(array0,array1)=>{
             }
             i++;
         }
-    }
-    else{
-        areEqual=false;
     }
     return areEqual;
 }

@@ -17,10 +17,9 @@ const css=StyleSheet.create({
         alignItems:"flex-end",
     },
     col1:{
-        height:"118%",
-        flexDirection:"row",
-        justifyContent:"center",
-        alignItems:"center",
+        height:"100%",
+        justifyContent:"flex-start",
+        alignItems:"flex-start",
     },
 });
 

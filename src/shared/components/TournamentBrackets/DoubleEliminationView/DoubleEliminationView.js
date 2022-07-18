@@ -1,22 +1,21 @@
-import React,{useRef,useEffect,useState} from "react";
+import React,{useRef,useEffect,useState,useMemo} from "react";
 import {ScrollView,View} from "react-native";
 import css from "./DoubleEliminationView.style";
 import SectionView from "./SectionView/SectionView";
 import RoundView from "../RoundView/RoundView";
-import {isLog2,getChampionShipRounds,setRoundData,getRoundMatches} from "../index";
+import {isLog2,getChampionShipRounds,setRoundData,getRoundMatches,getRoundTitle} from "../index";
 
 
 export default function DoubleEliminationView(props){
     const {onPlayMatch,data}=props;
+    const championship=JSON.parse(useMemo(()=>JSON.stringify(getChampionshipData(data)),[data]));
     const [ready,setReady]=useState(false),state=useRef({
         elimrounds:[],
         finalround:{matches:[{participants:[]}]},
         refs:{
             col1:useRef(null),
         },
-        //championship:getChampionshipData(data),
     }).current,{refs,elimrounds,finalround}=state;
-    const championship=getChampionshipData(data);
 
     useEffect(()=>{
         setElimRoundsMatches(elimrounds,data);
@@ -84,7 +83,13 @@ export default function DoubleEliminationView(props){
 
 const getChampionshipData=(data)=>{
     const championship={title:"championship",...data.championship,participants:data.participants};
-    championship.rounds=getChampionShipRounds(championship);
+    const rounds=championship.rounds=getChampionShipRounds(championship);
+    const lasti=rounds.length-1;
+    rounds.forEach((round,i)=>{
+        if(round.title===undefined){
+            round.title=i===lasti?"championship final":`Round ${i+1}`;
+        }
+    });
     return championship;
 }
 
@@ -109,6 +114,13 @@ const setElimRoundsMatches=(elimrounds,data)=>{
         setRoundData(elimround,i,elimination);
         elimround.matches=getRoundMatches({participantIds:loserIds,matchrefs:elimround.matches});
     }
+    const lasti=elimrounds.length-1;
+    elimrounds.forEach((elimround,i)=>{
+        if(elimround.title===undefined){
+            elimround.title=i===lasti?"elimination final":`Round ${i+1}`;
+        }
+        delete elimround.loserIds;
+    });
 }
 
 const setElimRounds=({elimrounds,params})=>{
@@ -124,10 +136,6 @@ const setElimRounds=({elimrounds,params})=>{
         elimrounds.push(elimround);
     }
 }
-
-/* const setEliminationFinalist=(finalround,round)=>{
-    const 
-} */
 
 const setFinalRoundParticipants=(finalround,round)=>{
     const {matches}=round;
@@ -148,8 +156,8 @@ const setFinalRound=(finalround,final)=>{
     Object.assign(finalround.matches[0],match);
     delete final.match;
     Object.assign(finalround,final);
-    if(!finalround.title){
-        finalround.title="final";
+    if(finalround.title===undefined){
+        finalround.title="grand final";
     }
     finalround.isFinal=true;
 }

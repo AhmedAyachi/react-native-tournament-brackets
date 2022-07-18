@@ -45,7 +45,7 @@ export default function TournamentView(props){
 const setRoundMatches=(data)=>{
     const {rounds}=data,max=rounds.length;
     rounds.forEach((round,i)=>{
-        if(!round.title){
+        if(round.title===undefined){
             round.title=getRoundTitle(i,max);
         }
         round.matches=(round.matches||[]).map(match=>getMatchData(match,data));
