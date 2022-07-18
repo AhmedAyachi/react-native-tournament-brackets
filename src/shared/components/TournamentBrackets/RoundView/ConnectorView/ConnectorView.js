@@ -35,5 +35,5 @@ export default function ConnectorView(props){
 ConnectorView.defaultProps={
     height:100,
     strokeWidth:3,
-    stroke:"#f067a0",
+    stroke:"orange",
 }
