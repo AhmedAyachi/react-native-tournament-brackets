@@ -3,7 +3,7 @@ import {rem,border} from "css";
 
 
 const css=StyleSheet.create({
-    championshipview:{
+    tournamentview:{
         flexDirection:"row",
         justifyContent:"flex-start",
         alignItems:"flex-start",

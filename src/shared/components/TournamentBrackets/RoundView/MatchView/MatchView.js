@@ -18,7 +18,7 @@ export default function MatchView(props){
                 <Text style={css.date} numberOfLines={1} ellipsizeMode="clip">{match.date}</Text>
             </View>
             <View style={css.row1}>
-                {participants.map((participant,i)=>(
+                {participants&&participants.map((participant,i)=>(
                     <ParticipantView
                         style={{backgroundColor:isPlayed?(participant&&participant.isWinner?"green":"red"):"orangered"}}
                         key={`participant${i+1}`}

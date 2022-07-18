@@ -2,12 +2,30 @@
 
 export const useId=(startsWith)=>(startsWith||"")+"_"+Math.random().toString(36).slice(2);
 
+export const getChampionShipRounds=(data)=>{
+    const {participants}=data;
+    const rounds=new Array(Math.floor(Math.log2(participants&&participants.length))).fill(null).map(()=>({}));
+    for(let i=0;i<rounds.length;i++){
+        const round=rounds[i];
+        let participantIds=null;
+        if(i){
+            const {matches}=rounds[i-1];
+            participantIds=matches.map(({winnerId,participantIds})=>winnerId&&participantIds.find(id=>id===winnerId));
+        }
+        else{
+            participantIds=data.participants.map(({id})=>id);
+        }
+        setRoundData(round,i,data);
+        round.matches=getRoundMatches({participantIds,matchrefs:round.matches});
+    }
+    return rounds;
+};
+
 export const setRoundData=(round,i,data)=>{
     if(data){
         const roundref=getRoundRef(i,data.rounds);
         roundref&&Object.assign(round,roundref);
     }
-    delete round.loserIds;
     round.id=`r${i}`;
     round.index=i;
 }
@@ -106,7 +124,7 @@ export const getRoundTitle=(index,length)=>{
 
 export const getMatchData=(matchref,data,opponents)=>{
     const match={...matchref},participantIds=opponents?opponents:matchref.participantIds;
-    match.participants=participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)}));
+    match.participants=participantIds&&participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)}));
     if(participantIds.length>=2){
         const {winnerId}=match;
         const winner=winnerId&&match.participants.find(participant=>participant&&(participant.id===winnerId));

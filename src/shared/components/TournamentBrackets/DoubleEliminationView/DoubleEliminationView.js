@@ -3,18 +3,21 @@ import {ScrollView,View} from "react-native";
 import css from "./DoubleEliminationView.style";
 import SectionView from "./SectionView/SectionView";
 import RoundView from "../RoundView/RoundView";
-import {isLog2,getRoundTitle,getMatchData,setRoundData,getRoundMatches} from "../index";
+import {isLog2,getChampionShipRounds,setRoundData,getRoundMatches} from "../index";
 
 
 export default function DoubleEliminationView(props){
-    const {onPlayMatch,data}=props,{refs,elimrounds,finalround}=useRef({
+    const {onPlayMatch,data}=props;
+    const [ready,setReady]=useState(false),state=useRef({
         elimrounds:[],
         finalround:{matches:[{participants:[]}]},
         refs:{
             col1:useRef(null),
         },
-    }).current;
-    const [ready,setReady]=useState(false);
+        //championship:getChampionshipData(data),
+    }).current,{refs,elimrounds,finalround}=state;
+    const championship=getChampionshipData(data);
+
     useEffect(()=>{
         setElimRoundsMatches(elimrounds,data);
         setFinalRoundParticipants(finalround,elimrounds[elimrounds.length-1]);
@@ -27,13 +30,13 @@ export default function DoubleEliminationView(props){
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
                 <View style={css.col0}>
                     <SectionView {...props}
-                        data={{title:"championship",...data.championship,participants:data.participants}}
+                        data={championship}
                         onPlayMatch={(params)=>{
                             const {round}=params;
                             setElimRounds({elimrounds,params});
                             round.isLast&&setFinalRoundParticipants(finalround,round);
                             if(ready&&onPlayMatch){
-                                params.round.isChampionship=true;
+                                round.isChampionship=true;
                                 onPlayMatch(params);
                             }
                         }}
@@ -46,13 +49,9 @@ export default function DoubleEliminationView(props){
                                 }
                             }
                         }}
-                        /* onContentLayout={(params)=>{
-                            console.log(params.nativeEvent.layout);
-                        }} */
                     />
                     {ready&&
                         <SectionView {...props}
-                            isElimination={true}
                             data={{title:"elimination",rounds:elimrounds,participants:data.participants}}
                             onPlayMatch={onPlayMatch&&((params)=>{
                                 params.round.isChampionship=false;
@@ -83,6 +82,12 @@ export default function DoubleEliminationView(props){
     )
 }
 
+const getChampionshipData=(data)=>{
+    const championship={title:"championship",...data.championship,participants:data.participants};
+    championship.rounds=getChampionShipRounds(championship);
+    return championship;
+}
+
 const setElimRoundsMatches=(elimrounds,data)=>{
     for(let i=0;i<elimrounds.length;i++){
         let elimround=elimrounds[i],{loserIds}=elimround;
@@ -104,13 +109,6 @@ const setElimRoundsMatches=(elimrounds,data)=>{
         setRoundData(elimround,i,elimination);
         elimround.matches=getRoundMatches({participantIds:loserIds,matchrefs:elimround.matches});
     }
-    const max=elimrounds.length+1;
-    elimrounds.forEach((elimround,i)=>{
-        if(!elimround.title){
-            elimround.title=getRoundTitle(i,max);
-        }
-        elimround.matches=elimround.matches.map(match=>getMatchData(match,data));
-    });
 }
 
 const setElimRounds=({elimrounds,params})=>{
@@ -127,10 +125,19 @@ const setElimRounds=({elimrounds,params})=>{
     }
 }
 
+/* const setEliminationFinalist=(finalround,round)=>{
+    const 
+} */
+
 const setFinalRoundParticipants=(finalround,round)=>{
     const {matches}=round;
     const fmatch=matches[0];
-    finalround.matches[0].participants.push(fmatch.participants.find(participant=>participant&&participant.isWinner));
+    const finalmatch=finalround.matches[0];
+
+    finalmatch.participants.push(fmatch.participants?
+        fmatch.participants.find(participant=>participant&&participant.isWinner):
+        fmatch.participantIds.find(id=>id===fmatch.winnerId)
+    );
 }
 
 const setFinalRound=(finalround,final)=>{
