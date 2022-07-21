@@ -7,7 +7,6 @@ const css=StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         marginVertical:1*rem,
-        overflow:"visible",
     },
     row0:{
         width:"100%",

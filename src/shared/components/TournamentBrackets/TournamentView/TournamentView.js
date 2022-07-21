@@ -17,10 +17,10 @@ export default function TournamentView(props){
                 if(i&&(!(straight))){
                     index++;
                 }
-                const isLast=round.isLast=(i===lastindex);
+                const isLast=(i===lastindex);
                 return (
                     <RoundView
-                        style={isLast&&({flex:1})}
+                        //style={isLast&&({flex:1})}
                         key={i}
                         round={round} connected={i}
                         renderMatch={props.renderMatch}
