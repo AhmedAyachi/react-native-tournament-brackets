@@ -14,6 +14,7 @@ export default function SectionView(props){
             <TournamentView
                 {...props}
                 style={{backgroundColor:css.sectionview.backgroundColor}}
+                roundStyle={(title==="championship")&&css.round}
             />
         </View>
     )

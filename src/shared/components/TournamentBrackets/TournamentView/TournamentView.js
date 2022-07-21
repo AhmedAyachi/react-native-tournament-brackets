@@ -9,7 +9,6 @@ export default function TournamentView(props){
     const {data,onPlayMatch}=props,{rounds}=data;
     setRoundMatches(data);
     let index=0;
-    const lastindex=rounds.length-1;
     return (
         <View style={[css.tournamentview,props.style]}>
             {rounds&&rounds.map((round,i)=>{
@@ -17,16 +16,13 @@ export default function TournamentView(props){
                 if(i&&(!(straight))){
                     index++;
                 }
-                const isLast=(i===lastindex);
                 return (
                     <RoundView
-                        //style={isLast&&({flex:1})}
                         key={i}
+                        style={props.roundStyle}
                         round={round} connected={i}
                         renderMatch={props.renderMatch}
                         connectorStyle={{
-                            //width:isLast?0:undefined,
-                            //style:{flex:1},
                             straight,
                             height:straight?undefined:css.height*(2**(index+1)),
                             strokeWidth:(props.strokeWidth||3)/(straight?0.65:index),

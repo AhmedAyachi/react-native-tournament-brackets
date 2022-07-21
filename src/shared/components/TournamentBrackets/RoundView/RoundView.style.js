@@ -6,7 +6,6 @@ const css=StyleSheet.create({
     roundview:{
         justifyContent:"flex-start",
         alignItems:"center",
-        marginHorizontal:0.1*rem,
     },
     row0:{
         width:"100%",

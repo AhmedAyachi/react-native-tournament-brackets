@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {rem,border} from "css";
+import {rem} from "css";
 
 
 const css=StyleSheet.create({
@@ -11,8 +11,10 @@ const css=StyleSheet.create({
         fontSize:2*rem,
         fontWeight:"700",
         textTransform:"capitalize",
-        //paddingBottom:1*rem,
     },
+    round:{
+        marginHorizontal:0.2*rem,
+    }
 });
 
 export default css;
