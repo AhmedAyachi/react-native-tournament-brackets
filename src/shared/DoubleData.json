@@ -3,7 +3,6 @@
     "dateformat": "dd/mm/yyyy",
     "rounds": [
       {
-        "title": "first round",
         "matches": [
           {
             "id": "m0",
@@ -56,12 +55,11 @@
         ]
       },
       {
-        "title": "1/4 final",
         "matches": [
           {
             "id": "m8",
             "date": "09/07/2021",
-            "winnerId": "p2"
+            "winnerId": "p1"
           },
           {
             "id": "m9",
@@ -81,7 +79,6 @@
         ]
       },
       {
-        "title": "semi-final",
         "matches": [
           {
             "id": "m12",
@@ -96,7 +93,6 @@
         ]
       },
       {
-        "title": "final",
         "matches": [
           {
             "id": "m14",
@@ -114,10 +110,35 @@
           {
             "date": "20/07/2021",
             "winnerId": "p0"
+          },
+          {
+            "date": "21/07/2021",
+            "winnerId": "p4"
+          }
+        ]
+      },
+      {
+        "matches": [
+          {
+            "date": "04/07/2022",
+            "winnerId": "p0"
+          },
+          {
+            "date": "05/07/2022",
+            "participantIds": ["p11"]
+          },
+          {
+            "date": "06/07/2022",
+            "participantIds": ["p15"]
           }
         ]
       }
     ]
+  },
+  "final": {
+    "match": {
+      "date": "30/11/2022"
+    }
   },
   "participants": [
     {

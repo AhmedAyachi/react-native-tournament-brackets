@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native';
 import { rem, border } from 'css';
 
 const css = StyleSheet.create({
-  container: {
-    width: '100%',
-  },
-  doubleeiminationview: {
-    maxWidth: '100%',
+  height: 2.8357 * rem,
+  tournamentview: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

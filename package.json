@@ -28,6 +28,7 @@
     "start": "react-native start",
     "restart": "yarn start --reset-cache",
     "test": "jest",
+    "react-native": "react-native",
     "perf-audit:ios": "npx react-native-bundle-visualizer",
     "perf-audit:android": "npx react-native-bundle-visualizer --platform android",
     "lint:check": "eslint --ext .js --ext .jsx ./",

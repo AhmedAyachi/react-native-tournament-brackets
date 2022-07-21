@@ -7,9 +7,9 @@ const css = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   singleeliminationview: {
+    backgroundColor: 'rgba(0,0,0,0.05)',
     height: '100%',
     width: '100%',
-    // backgroundColor:"rgba(0,0,0,0.05)",
   },
 });
 

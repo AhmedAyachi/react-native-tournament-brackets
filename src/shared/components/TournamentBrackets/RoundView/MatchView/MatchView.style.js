@@ -9,7 +9,6 @@ const css = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 1 * rem,
-    overflow: 'hidden',
   },
   row0: {
     width: '100%',

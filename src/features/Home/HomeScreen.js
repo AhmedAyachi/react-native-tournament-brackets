@@ -6,7 +6,7 @@ import { Button, Text } from 'react-native-ui-lib';
 // Components:
 import {
   SingleEliminationView,
-  DoubleEiminationView,
+  DoubleEliminationView,
   MatchTestView,
 } from 'components';
 import { data } from 'shared';
@@ -15,12 +15,16 @@ import ScreenContainer from '../../shared/components/organisms/ScreenContainer';
 function HomeScreen({ navigation }) {
   return (
     <ScreenContainer>
-      <DoubleEiminationView data={data.double} />
+      <DoubleEliminationView
+        data={data.double}
+        // stroke="#f067a0"
+        strokeWidth={2}
+        // renderMatch={MatchTestView}
+      />
       {/* <SingleEliminationView
                 data={data.single}
                 stroke="orange"
                 strokeWidth={2}
-                //renderMatch={MatchTestView}
             /> */}
     </ScreenContainer>
   );

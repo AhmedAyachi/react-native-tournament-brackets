@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-
 /* eslint-disable mdx/no-unused-expressions */
 import React, { useEffect, useRef } from 'react';
 import { View, Text } from 'react-native';
@@ -19,23 +17,29 @@ export default function MatchView(props) {
   return (
     <View style={[css.matchview, props.style]}>
       <View style={css.row0}>
-        <Text style={css.date}>{match.date}</Text>
+        <Text style={css.date} numberOfLines={1} ellipsizeMode="clip">
+          {match.date}
+        </Text>
       </View>
       <View style={css.row1}>
-        {participants.map((participant, i) => (
-          <ParticipantView
-            style={{
-              backgroundColor: isPlayed
-                ? participant.isWinner
-                  ? 'green'
-                  : 'red'
-                : 'orangered',
-            }}
-            key={`participant${i + 1}`}
-            participant={participant || noparticipant}
-            label={isPlayed && (participant.isWinner ? 'win' : 'loss')}
-          />
-        ))}
+        {participants &&
+          participants.map((participant, i) => (
+            <ParticipantView
+              style={{
+                backgroundColor: isPlayed
+                  ? participant && participant.isWinner
+                    ? 'green'
+                    : 'red'
+                  : 'orangered',
+              }}
+              key={`participant${i + 1}`}
+              participant={participant || noparticipant}
+              label={
+                isPlayed &&
+                (participant && participant.isWinner ? 'win' : 'loss')
+              }
+            />
+          ))}
         <Text style={css.status} numberOfLines={1}>
           {isPlayed ? '' : status}
         </Text>
@@ -46,17 +50,4 @@ export default function MatchView(props) {
 
 const noparticipant = {
   name: '',
-};
-
-const getStatusColor = (status) => {
-  switch (status) {
-    case 'played':
-      return 'orange';
-    case 'live':
-      return 'khaki';
-    case 'pending':
-      return 'dodgerblue';
-    default:
-      return 'grey';
-  }
 };
