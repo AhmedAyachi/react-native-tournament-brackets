@@ -8,6 +8,7 @@ const css=StyleSheet.create({
         justifyContent:"flex-start",
         alignItems:"flex-start",
     },
+    height:2.8357*rem,
 });
 
 export default css;

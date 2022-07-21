@@ -28,8 +28,8 @@ export default function TournamentView(props){
                             //width:isLast?0:undefined,
                             //style:{flex:1},
                             straight,
-                            height:straight?undefined:30*(2**(index+1)),
-                            strokeWidth:(props.strokeWidth||3)/(straight?1:(index)),
+                            height:straight?undefined:css.height*(2**(index+1)),
+                            strokeWidth:(props.strokeWidth||3)/(straight?0.65:index),
                             stroke:props.stroke,
                         }}
                         onPlayMatch={onPlayMatch&&((match)=>{
