@@ -1,12 +1,12 @@
 import {StyleSheet} from "react-native";
-import {rem} from "css";
+import {rem,border} from "css";
 
 
 const css=StyleSheet.create({
     connectorview:{
         flex:1,
-        //marginTop:0.25*rem,
         marginRight:0.3*rem,
+        ...border(1,"solid","red"),
     },
 });
 

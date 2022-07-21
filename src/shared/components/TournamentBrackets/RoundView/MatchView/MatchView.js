@@ -13,7 +13,7 @@ export default function MatchView(props){
         onPlay&&onPlay(match);
     },[]);
     return (
-        <View style={[css.matchview,props.style]}>
+        <View style={[css.matchview,props.style]} onLayout={props.onLayout}>
             <View style={css.row0}>
                 <Text style={css.date} numberOfLines={1} ellipsizeMode="clip">{match.date}</Text>
             </View>
@@ -34,13 +34,4 @@ export default function MatchView(props){
 
 const noparticipant={
     name:"",
-}
-
-const getStatusColor=(status)=>{
-    switch(status){
-        case "played":return "orange";
-        case "live":return "khaki";
-        case "pending":return "dodgerblue";
-        default:return "grey";
-    }
 }

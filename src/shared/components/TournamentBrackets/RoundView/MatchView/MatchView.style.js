@@ -6,7 +6,6 @@ const css=StyleSheet.create({
     matchview:{
         justifyContent:"center",
         alignItems:"center",
-        marginVertical:1*rem,
     },
     row0:{
         width:"100%",
