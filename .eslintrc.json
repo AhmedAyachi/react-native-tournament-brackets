@@ -5,7 +5,8 @@
         "quotes":[2,"double"],
         "indent":[2,4,{
             "VariableDeclarator":0,
-            "SwitchCase":1
+            "SwitchCase":1,
+            "MemberExpression":0
         }],
         "comma-dangle":"off",
         "prefer-const":"off",

@@ -7,6 +7,7 @@ const css=StyleSheet.create({
         justifyContent:"flex-start",
         alignItems:"center",
         marginHorizontal:0.3*rem,
+        //...border(1,"solid","red"),
     },
     row0:{
         width:"100%",
@@ -39,7 +40,7 @@ const css=StyleSheet.create({
     matchcontainer:{
         justifyContent:"center",
         alignItems:"center",
-        marginVertical:1*rem,
+        marginVertical:0*rem,
     },
 });
 

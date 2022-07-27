@@ -3,8 +3,9 @@ import {isLog2,getChampionShipRounds,setRoundData,getRoundMatches} from "../inde
 
 
 export const useData=(data)=>{
-    const championship=JSON.parse(useMemo(()=>JSON.stringify(getChampionshipData(data)),[data]));
-    const [ready,setReady]=useState(false),state=useMemo(()=>({
+    const championship=JSON.parse(useMemo(()=>JSON.stringify(getChampionshipData(data)),[data,getChampionshipData]));
+    const [ready,setReady]=useState(false);
+    const state=useMemo(()=>({
         elimrounds:getElimRounds(championship),
         finalround:getFinalRound(championship,data),
     }),[data]),{elimrounds,finalround}=state;

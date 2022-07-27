@@ -5,7 +5,7 @@ import {rem,border} from "css";
 const css=StyleSheet.create({
     tournamentview:{
         flexDirection:"row",
-        justifyContent:"space-between",
+        justifyContent:"flex-start",
         alignItems:"flex-start",
     },
     height:2.8357*rem,

@@ -6,7 +6,7 @@ import {rem} from "css";
 
 
 export default function ConnectorView(props){
-    const {height,width=height/10,strokeWidth,straight,stroke}=props;
+    const {height,strokeWidth,straight,stroke}=props;
     const h=50-strokeWidth,v=50-strokeWidth*3;
     return (
         <Svg style={[css.connectorview,props.style]} preserveAspectRatio="none"
