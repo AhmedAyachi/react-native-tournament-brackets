@@ -40,7 +40,7 @@ const css=StyleSheet.create({
     matchcontainer:{
         justifyContent:"center",
         alignItems:"center",
-        marginVertical:0*rem,
+        marginVertical:1*rem,
     },
 });
 

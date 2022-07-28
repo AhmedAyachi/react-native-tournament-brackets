@@ -11,6 +11,7 @@ export default function TournamentView(props){
     const offsets=useRef([]).current;
     setRoundMatches(data);
     let index=0;
+    //console.log("render",rounds);
     return (
         <View style={[css.tournamentview,props.style]}>
             {rounds&&rounds.map((round,i)=>{
@@ -27,9 +28,7 @@ export default function TournamentView(props){
                         renderMatch={props.renderMatch}
                         onMatchOffset={(!straight)&&(offset=>{
                             offsets.push(offset);
-                            if(offsets.length===rounds.length){
-                                setConnected(true);
-                            }
+                            (!connected)&&setConnected(offsets.length===rounds.length);
                             //setOffsets([...offsets,offset]);
                         })}
                         connectorStyle={{

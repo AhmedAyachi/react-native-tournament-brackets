@@ -19,11 +19,6 @@
                 "ImportDeclaration":false
             }
         }],
-        "key-spacing":[2,{
-            "mode":"strict",
-            "beforeColon":false,
-            "afterColon":false
-        }],
         "no-trailing-spaces":[2,{
             "skipBlankLines":true,
             "ignoreComments":true
@@ -48,6 +43,11 @@
         "semi":"off",
         "computed-property-spacing":[2,"never"],
         "semi-spacing":["error",{"before":false,"after":false}],
+        "key-spacing":[2,{
+            "mode":"strict",
+            "beforeColon":false,
+            "afterColon":false
+        }],
         "keyword-spacing":[2,{
             "before":false,
             "after":false,
@@ -59,7 +59,8 @@
                 "let":{"before":true,"after":true},
                 "var":{"before":true,"after":true},
                 "return":{"before":true,"after":true},
-                "case":{"before":true,"after":true}
+                "case":{"before":true,"after":true},
+                "as":{"before":true,"after":true}
             }
         }],
         "arrow-spacing":[2,{"before":false,"after":false}],

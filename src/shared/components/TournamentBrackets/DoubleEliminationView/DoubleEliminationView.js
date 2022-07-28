@@ -3,7 +3,7 @@ import {ScrollView,View} from "react-native";
 import css from "./DoubleEliminationView.style";
 import SectionView from "./SectionView/SectionView";
 import RoundView from "../RoundView/RoundView";
-import *as H from "./Hooks";
+import * as H from "./Hooks";
 
 
 export default function DoubleEliminationView(props){

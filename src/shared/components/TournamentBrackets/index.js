@@ -126,11 +126,10 @@ export const getRoundTitle=(index,length)=>{
     }
 }
 
-export const getMatchData=(matchref,data,opponents)=>{
-    const match={...matchref},participantIds=opponents?opponents:matchref.participantIds;
-    match.participants=participantIds&&participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)}));
-    console.log(participantIds);
-    if(participantIds.length>=2){
+export const getMatchData=(matchref,data)=>{
+    const match={...matchref},{participantIds}=matchref;
+    match.participants=participantIds?participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)})):[];
+    if(participantIds&&participantIds.length>=2){
         const {winnerId}=match;
         const winner=winnerId&&match.participants.find(participant=>participant&&(participant.id===winnerId));
         if(winner){
