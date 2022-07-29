@@ -11,6 +11,7 @@ const css=StyleSheet.create({
         fontSize:2*rem,
         fontWeight:"700",
         textTransform:"capitalize",
+        padding:1*rem,
     },
     round:{
         marginHorizontal:0.2*rem,

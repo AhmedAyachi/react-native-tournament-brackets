@@ -9,7 +9,6 @@ export default function TournamentView(props){
     const [connected,setConnected]=useState(false);
     const offsets=useRef([]).current;
     let index=0;
-    connected&&console.log(offsets);
     return (
         <View style={[css.tournamentview,props.style]}>
             {rounds&&rounds.map((round,i)=>{
