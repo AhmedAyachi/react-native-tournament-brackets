@@ -1,4 +1,4 @@
-import React,{useState,useRef,useEffect} from "react";
+import React,{useRef,useEffect} from "react";
 import {View,Text} from "react-native";
 import css from "./RoundView.style";
 import MatchView from "./MatchView/MatchView";
@@ -23,7 +23,7 @@ export default function RoundView(props){
                 {matches&&matches.map((match,i)=>(
                     <View style={css.section} key={`section${i}`}>
                         {props.connected?<ConnectorView {...props.connectorStyle}/>:<></>}
-                        <View style={css.matchcontainer} ref={refs.matchcontainers[i]} renderToHardwareTextureAndroid={false}>
+                        <View style={css.matchcontainer} ref={refs.matchcontainers[i]} renderToHardwareTextureAndroid={true}>
                             {props.renderMatch({match,onPlay:props.onPlayMatch})}
                         </View>
                     </View>
@@ -38,10 +38,9 @@ RoundView.defaultProps={
 }
 
 const useMatchOffset=(refs,callback)=>{
-    const {matchcontainers}=refs;
     new Promise(resolve=>{
-        const pageYs=[];
-        matchcontainers.forEach(({current},i)=>{
+        const {matchcontainers}=refs,pageYs=[];
+        matchcontainers.forEach(({current})=>{
             current.measure((x,y,width,height,pageX,pageY)=>{
                 pageYs.push(pageY);
                 (pageYs.length===matchcontainers.length)&&resolve(pageYs);
@@ -49,14 +48,14 @@ const useMatchOffset=(refs,callback)=>{
         });
     }).
     then(pageYs=>{
-        const heights=[],{length}=pageYs;
+        const offsets=[],{length}=pageYs;
         for(let i=1;i<length;i++){
             const pageY=pageYs[i];
-            heights.push(pageY-pageYs[i-1]);
+            offsets.push(pageY-pageYs[i-1]);
         }
         let average=0;
         if(length>1){
-            average=heights.reduce(((sum,height)=>sum+height),0)/(length-1);
+            average=(css.matchcontainer.marginVertical/2)+offsets.reduce(((sum,offset)=>sum+offset),0)/offsets.length;
         }
         callback&&callback(average);
     });

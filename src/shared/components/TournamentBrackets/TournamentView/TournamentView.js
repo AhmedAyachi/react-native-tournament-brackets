@@ -1,4 +1,4 @@
-import React,{useRef,useState} from "react";
+import React,{useState,useRef} from "react";
 import {View} from "react-native";
 import css from "./TournamentView.style";
 import RoundView from "../RoundView/RoundView";
@@ -24,15 +24,14 @@ export default function TournamentView(props){
                         round={round}
                         connected={i&&connected}
                         renderMatch={props.renderMatch}
-                        onMatchOffset={(!straight)&&(offset=>{
+                        onMatchOffset={(!connected)&&(offset=>{
                             offsets.push(offset);
-                            (!connected)&&setConnected(offsets.length===rounds.length);
-                            //setOffsets([...offsets,offset]);
+                            ((i+1)===rounds.length)&&setConnected(true);
                         })}
-                        connectorStyle={{
+                        connectorStyle={connected&&{
                             straight,
-                            //height:straight?undefined:css.height*(2**(index+1)),
-                            strokeWidth:(props.strokeWidth||3)/(straight?0.65:index),
+                            height:(straight||(!i))?undefined:offsets[i-1],
+                            strokeWidth:props.strokeWidth/(straight?0.65:index),
                             stroke:props.stroke,
                         }}
                         onPlayMatch={onPlayMatch&&((match)=>{
@@ -43,4 +42,8 @@ export default function TournamentView(props){
             })}
         </View>
     )
+}
+
+TournamentView.defaultProps={
+    strokeWidth:2,
 }

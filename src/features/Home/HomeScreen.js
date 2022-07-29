@@ -14,12 +14,12 @@ function HomeScreen({navigation}){
             <DoubleEliminationView
                 data={data.double}
                 //stroke="#f067a0"
-                strokeWidth={2}
+                //strokeWidth={2}
                 //renderMatch={MatchTestView}
             />
             {/* <SingleEliminationView
                 data={data.single}
-                stroke="orange"
+                stroke="black"
                 strokeWidth={2}
             /> */}
         </ScreenContainer>
