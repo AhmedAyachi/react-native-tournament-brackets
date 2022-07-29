@@ -12,7 +12,7 @@ export const useData=(data)=>{
     useEffect(()=>{
         setElimRoundsMatches(elimrounds,data);
         setFinalRoundParticipants(finalround,elimrounds,data.participants);
-        setReady(true);
+        //setReady(true);
     },[]);
     return {
         ...state,ready,championship,

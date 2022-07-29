@@ -23,7 +23,7 @@ export default function RoundView(props){
                 {matches&&matches.map((match,i)=>(
                     <View style={css.section} key={`section${i}`}>
                         {props.connected?<ConnectorView {...props.connectorStyle}/>:<></>}
-                        <View style={css.matchcontainer} ref={refs.matchcontainers[i]}>
+                        <View style={css.matchcontainer} ref={refs.matchcontainers[i]} renderToHardwareTextureAndroid={false}>
                             {props.renderMatch({match,onPlay:props.onPlayMatch})}
                         </View>
                     </View>
