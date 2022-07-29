@@ -13,7 +13,7 @@ export default function MatchView(props){
         onPlay&&onPlay(match);
     },[]);
     return (
-        <View style={[css.matchview,props.style]} onLayout={props.onLayout}>
+        <View style={[css.matchview,props.style]}>
             <View style={css.row0}>
                 <Text style={css.date} numberOfLines={1} ellipsizeMode="clip">{match.date}</Text>
             </View>
