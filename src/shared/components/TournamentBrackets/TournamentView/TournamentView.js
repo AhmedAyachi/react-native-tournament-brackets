@@ -23,9 +23,13 @@ export default function TournamentView(props){
                         round={round}
                         connected={i&&connected}
                         renderMatch={props.renderMatch}
-                        onMatchOffset={(!connected)&&(offset=>{
-                            offsets.push(offset);
+                        onMatchOffset={(!connected)&&((offset)=>{
+                            offsets.push(offset.average);
                             ((i+1)===rounds.length)&&setConnected(true);
+                            if((i+1)===rounds.length){
+                                const {onRoundOffset}=props;
+                                onRoundOffset&&onRoundOffset(offset);
+                            }
                         })}
                         connectorStyle={connected&&{
                             straight,

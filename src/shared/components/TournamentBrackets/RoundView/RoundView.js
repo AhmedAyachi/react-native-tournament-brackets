@@ -57,6 +57,6 @@ const useMatchOffset=(refs,callback)=>{
         if(length>1){
             average=(css.matchcontainer.marginVertical/2)+offsets.reduce(((sum,offset)=>sum+offset),0)/offsets.length;
         }
-        callback&&callback(average);
+        callback&&callback({average,pageYs});
     });
 }

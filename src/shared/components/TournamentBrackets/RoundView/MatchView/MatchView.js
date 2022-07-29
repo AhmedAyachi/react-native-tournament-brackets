@@ -32,6 +32,4 @@ export default function MatchView(props){
     )
 }
 
-const noparticipant={
-    name:"",
-}
+const noparticipant={name:""};

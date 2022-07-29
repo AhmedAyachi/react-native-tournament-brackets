@@ -16,7 +16,7 @@ const css=StyleSheet.create({
         alignItems:"flex-end",
     },
     col1:{
-        height:"100%",
+        height:"115.15%",
         justifyContent:"flex-start",
         alignItems:"flex-start",
     },

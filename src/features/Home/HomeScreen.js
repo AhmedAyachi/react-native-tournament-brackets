@@ -14,8 +14,8 @@ function HomeScreen({navigation}){
             <DoubleEliminationView
                 data={data.double}
                 //stroke="#f067a0"
-                //strokeWidth={2}
-                //renderMatch={MatchTestView}
+                //strokeWidth={1}
+                renderMatch={MatchTestView}
             />
             {/* <SingleEliminationView
                 data={data.single}

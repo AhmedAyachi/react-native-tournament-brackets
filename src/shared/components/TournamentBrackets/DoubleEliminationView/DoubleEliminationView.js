@@ -1,4 +1,4 @@
-import React,{useRef} from "react";
+import React,{useRef,useState} from "react";
 import {ScrollView,View} from "react-native";
 import css from "./DoubleEliminationView.style";
 import SectionView from "./SectionView/SectionView";
@@ -9,6 +9,8 @@ import * as H from "./Hooks";
 export default function DoubleEliminationView(props){
     const {onPlayMatch}=props;
     const {championship,elimination,finalround}=H.useData(props.data);
+    const [grandfinalshown,setGrandFinalShown]=useState(false);
+    const lastmatchYs=useRef([]).current;
     const refs={
         col1:useRef(null),
     };
@@ -33,6 +35,12 @@ export default function DoubleEliminationView(props){
                                 col1El.setNativeProps({style:{paddingTop:height}});
                             }
                         }}
+                        onRoundOffset={({pageYs})=>{
+                            lastmatchYs.push(pageYs[0]);
+                            if(lastmatchYs.length===2){
+                                setGrandFinalShown(true);
+                            }
+                        }}
                     />
                     <SectionView {...props}
                         data={elimination}
@@ -40,24 +48,36 @@ export default function DoubleEliminationView(props){
                             params.round.isChampionship=false;
                             onPlayMatch(params);
                         })}
+                        onRoundOffset={({pageYs})=>{
+                            lastmatchYs.push(pageYs[0]);
+                            if(lastmatchYs.length===2){
+                                setGrandFinalShown(true);
+                            }
+                        }}
                     />
                 </View>
                 <View ref={refs.col1} style={css.col1}>
-                    <RoundView
-                        round={finalround}
-                        renderMatch={props.renderMatch}
-                        /* connected={true}
+                    {grandfinalshown&&
+                        <RoundView
+                            round={finalround}
+                            renderMatch={props.renderMatch}
+                            connected={true}
                             connectorStyle={{
-                                height:37.75*(2**(4)),
-                                strokeWidth:(props.strokeWidth||3)/4,
+                                height:lastmatchYs[1]-lastmatchYs[0],
+                                strokeWidth:(lastmatchYs[1]-lastmatchYs[0])*(0.15+props.strokeWidth*0.15)/824,
                                 stroke:props.stroke,
-                            }} */
-                        onPlayMatch={onPlayMatch&&((match)=>{
-                            onPlayMatch({match,round:finalround});
-                        })}
-                    />
+                            }}
+                            onPlayMatch={onPlayMatch&&((match)=>{
+                                onPlayMatch({match,round:finalround});
+                            })}
+                        />
+                    }
                 </View>
             </ScrollView>
         </ScrollView>
     )
+}
+
+DoubleEliminationView.defaultProps={
+    strokeWidth:2,
 }

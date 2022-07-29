@@ -32,7 +32,7 @@ const css=StyleSheet.create({
     },
     section:{
         flexDirection:"row",
-        justifyContent:"space-between",
+        justifyContent:"center",
         alignItems:"center",
         overflow:"hidden",
     },
