@@ -23,12 +23,12 @@ export const getChampionShipRounds=(data)=>{
 
 export const setRoundData=(round,i,data)=>{
     if(data){
-        let roundref=null;
+        //let roundref=null;
         const {rounds}=data;
         if(Array.isArray(rounds)&&rounds.length){
-            roundref=rounds.find(({index})=>(typeof(index)==="number")&&(i===index))||rounds[i];
+            const roundref=rounds.find(({index})=>(typeof(index)==="number")&&(i===index))||rounds[i];
+            roundref&&Object.assign(round,roundref);
         }
-        roundref&&Object.assign(round,roundref);
     }
     round.id=`r${i}`;
     round.index=i;
@@ -116,7 +116,17 @@ const findTargetMatch=(matchref,i,matches)=>{
     return match;
 }
 
-export const getRoundTitle=(index,length)=>{
+export const setRoundsMatches=(data)=>{
+    const {rounds}=data,max=rounds.length;
+    rounds.forEach((round,i)=>{
+        if(round.title===undefined){
+            round.title=getRoundTitle(i,max);
+        }
+        round.matches=(round.matches||[]).map(match=>getMatchData(match,data));
+    });
+};
+
+const getRoundTitle=(index,length)=>{
     const frac=length-1-index;
     switch(frac){
         case 0:return "final";
@@ -126,7 +136,7 @@ export const getRoundTitle=(index,length)=>{
     }
 }
 
-export const getMatchData=(matchref,data)=>{
+const getMatchData=(matchref,data)=>{
     const match={...matchref},{participantIds}=matchref;
     match.participants=participantIds?participantIds.map(participantId=>participantId&&({...data.participants.find(participant=>participant.id===participantId)})):[];
     if(participantIds&&participantIds.length>=2){

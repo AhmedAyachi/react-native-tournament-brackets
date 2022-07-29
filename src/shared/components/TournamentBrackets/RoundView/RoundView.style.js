@@ -21,7 +21,7 @@ const css=StyleSheet.create({
     row1:{
         width:"100%",
         flex:1,
-        justifyContent:"space-around",
+        justifyContent:"flex-start",
         alignItems:"flex-start",
         overflow:"hidden",
     },

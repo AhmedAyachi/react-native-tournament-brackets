@@ -8,7 +8,7 @@ import * as H from "./Hooks";
 
 export default function DoubleEliminationView(props){
     const {onPlayMatch}=props;
-    const {championship,elimination,ready,finalround}=H.useData(props.data);
+    const {championship,elimination,finalround}=H.useData(props.data);
     const refs={
         col1:useRef(null),
     };
@@ -21,47 +21,41 @@ export default function DoubleEliminationView(props){
                         data={championship}
                         onPlayMatch={(params)=>{
                             const {round}=params;
-                            if(ready&&onPlayMatch){
+                            if(onPlayMatch){
                                 round.isChampionship=true;
                                 onPlayMatch(params);
                             }
                         }}
                         onHeaderLayout={(params)=>{
-                            if(ready){
-                                const col1El=refs.col1.current;
-                                if(col1El){
-                                    const {height}=params.nativeEvent.layout;
-                                    col1El.setNativeProps({style:{paddingTop:height}});
-                                }
+                            const col1El=refs.col1.current;
+                            if(col1El){
+                                const {height}=params.nativeEvent.layout;
+                                col1El.setNativeProps({style:{paddingTop:height}});
                             }
                         }}
                     />
-                    {ready&&
-                        <SectionView {...props}
-                            data={elimination}
-                            onPlayMatch={onPlayMatch&&((params)=>{
-                                params.round.isChampionship=false;
-                                onPlayMatch(params);
-                            })}
-                        />
-                    }
+                    <SectionView {...props}
+                        data={elimination}
+                        onPlayMatch={onPlayMatch&&((params)=>{
+                            params.round.isChampionship=false;
+                            onPlayMatch(params);
+                        })}
+                    />
                 </View>
                 <View ref={refs.col1} style={css.col1}>
-                    {ready&&
-                        <RoundView
-                            round={finalround}
-                            renderMatch={props.renderMatch}
-                            /* connected={true}
+                    <RoundView
+                        round={finalround}
+                        renderMatch={props.renderMatch}
+                        /* connected={true}
                             connectorStyle={{
                                 height:37.75*(2**(4)),
                                 strokeWidth:(props.strokeWidth||3)/4,
                                 stroke:props.stroke,
                             }} */
-                            onPlayMatch={onPlayMatch&&((match)=>{
-                                onPlayMatch({match,round:finalround});
-                            })}
-                        />
-                    }
+                        onPlayMatch={onPlayMatch&&((match)=>{
+                            onPlayMatch({match,round:finalround});
+                        })}
+                    />
                 </View>
             </ScrollView>
         </ScrollView>
