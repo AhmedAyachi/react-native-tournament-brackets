@@ -14,7 +14,7 @@ const css=StyleSheet.create({
     },
     date:{
         fontWeight:"700",
-
+        textTransform:"capitalize",
     },
     status:{
         fontWeight:"700",

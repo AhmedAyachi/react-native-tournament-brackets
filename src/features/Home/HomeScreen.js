@@ -15,7 +15,7 @@ function HomeScreen({navigation}){
                 data={data.double}
                 //stroke="#f067a0"
                 //strokeWidth={1}
-                renderMatch={MatchTestView}
+                //renderMatch={MatchTestView}
             />
             {/* <SingleEliminationView
                 data={data.single}
