@@ -1,13 +1,12 @@
-import { StyleSheet } from 'react-native';
-import { rem, border } from 'css';
+import {StyleSheet} from "react-native";
 
-const css = StyleSheet.create({
-  height: 2.8357 * rem,
-  tournamentview: {
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+
+const css=StyleSheet.create({
+    tournamentview:{
+        flexDirection:"row",
+        justifyContent:"flex-start",
+        alignItems:"flex-start",
+    },
 });
 
 export default css;

@@ -1,19 +1,21 @@
-import { StyleSheet } from 'react-native';
-import { rem } from 'css';
+import {StyleSheet} from "react-native";
+import {rem} from "../../index.style";
 
-const css = StyleSheet.create({
-  round: {
-    marginHorizontal: 0.2 * rem,
-  },
-  sectionview: {
-    flex: 1,
-    width: '100%',
-  },
-  title: {
-    fontSize: 2 * rem,
-    fontWeight: '700',
-    textTransform: 'capitalize',
-  },
+
+const css=StyleSheet.create({
+    sectionview:{
+        width:"100%",
+        flex:1,
+    },
+    title:{
+        fontSize:2*rem,
+        fontWeight:"700",
+        textTransform:"capitalize",
+        padding:1*rem,
+    },
+    round:{
+        marginHorizontal:0.2*rem,
+    }
 });
 
 export default css;

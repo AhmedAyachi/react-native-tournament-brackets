@@ -1,25 +1,25 @@
-import { StyleSheet } from 'react-native';
-import { rem, border } from 'css';
+import {StyleSheet} from "react-native";
 
-const css = StyleSheet.create({
-  col0: {
-    alignItems: 'flex-end',
-    height: '100%',
-  },
-  col1: {
-    alignItems: 'flex-start',
-    height: '100%',
-    justifyContent: 'flex-start',
-  },
-  container: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-  },
-  doubleeliminationView: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    height: '100%',
-    width: '100%',
-  },
+
+const css=StyleSheet.create({
+    doubleeliminationView:{
+        width:"100%",
+        height:"100%",
+        backgroundColor:"rgba(0,0,0,0.05)",
+    },
+    container:{
+        justifyContent:"flex-start",
+        alignItems:"flex-start",
+    },
+    col0:{
+        height:"100%",
+        alignItems:"flex-end",
+    },
+    col1:{
+        height:"115.15%",
+        justifyContent:"flex-start",
+        alignItems:"flex-start",
+    },
 });
 
 export default css;

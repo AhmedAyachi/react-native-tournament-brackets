@@ -1,26 +1,26 @@
-import { StyleSheet } from 'react-native';
-import { border, rem } from 'css';
+import {StyleSheet} from "react-native";
 
-const css = StyleSheet.create({
-  date: {
-    fontWeight: '700',
-  },
-  matchview: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 1 * rem,
-  },
-  row0: {
-    width: '100%',
-  },
-  row1: {
-    width: '100%',
-  },
-  status: {
-    color: 'orangered',
-    fontWeight: '700',
-    textTransform: 'capitalize',
-  },
+
+const css=StyleSheet.create({
+    matchview:{
+        justifyContent:"center",
+        alignItems:"center",
+    },
+    row0:{
+        width:"100%",
+    },
+    row1:{
+        width:"100%",
+    },
+    date:{
+        fontWeight:"700",
+        textTransform:"capitalize",
+    },
+    status:{
+        fontWeight:"700",
+        textTransform:"capitalize",
+        color:"orangered",
+    },
 });
 
 export default css;
