@@ -1,12 +1,11 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from 'react-native';
 
-
-const css=StyleSheet.create({
-    tournamentview:{
-        flexDirection:"row",
-        justifyContent:"flex-start",
-        alignItems:"flex-start",
-    },
+const css = StyleSheet.create({
+  tournamentview: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
 });
 
 export default css;
