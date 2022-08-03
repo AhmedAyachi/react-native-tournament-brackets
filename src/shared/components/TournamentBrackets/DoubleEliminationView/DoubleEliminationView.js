@@ -19,42 +19,26 @@ export default function DoubleEliminationView(props){
         <ScrollView style={[css.doubleeliminationView,props.style]} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
                 <View style={css.col0}>
-                    <SectionView {...props}
-                        data={championship}
-                        onPlayMatch={(params)=>{
-                            const {round}=params;
-                            if(onPlayMatch){
-                                round.isChampionship=true;
+                    {[championship,elimination].map((item,i)=>(
+                        <SectionView {...props}
+                            key={i} data={item}
+                            onPlayMatch={onPlayMatch&&((params)=>{
+                                params.round.isChampionship=!Boolean(i);
                                 onPlayMatch(params);
-                            }
-                        }}
-                        onHeaderLayout={(params)=>{
-                            const col1El=refs.col1.current;
-                            if(col1El){
-                                const {height}=params.nativeEvent.layout;
-                                col1El.setNativeProps({style:{paddingTop:height}});
-                            }
-                        }}
-                        onRoundOffset={({pageYs})=>{
-                            lastmatchYs.push(pageYs[0]);
-                            if(lastmatchYs.length===2){
-                                setGrandFinalShown(true);
-                            }
-                        }}
-                    />
-                    <SectionView {...props}
-                        data={elimination}
-                        onPlayMatch={onPlayMatch&&((params)=>{
-                            params.round.isChampionship=false;
-                            onPlayMatch(params);
-                        })}
-                        onRoundOffset={({pageYs})=>{
-                            lastmatchYs.push(pageYs[0]);
-                            if(lastmatchYs.length===2){
-                                setGrandFinalShown(true);
-                            }
-                        }}
-                    />
+                            })}
+                            onHeaderLayout={i?null:((params)=>{
+                                const col1El=refs.col1.current;
+                                if(col1El){
+                                    const {height}=params.nativeEvent.layout;
+                                    col1El.setNativeProps({style:{paddingTop:height}});
+                                }
+                            })}
+                            onRoundOffset={({pageYs})=>{
+                                lastmatchYs.push(pageYs[0]);
+                                (lastmatchYs.length===2)&&setGrandFinalShown(true);
+                            }}
+                        />
+                    ))}
                 </View>
                 <View ref={refs.col1} style={css.col1}>
                     {grandfinalshown&&
@@ -81,3 +65,7 @@ export default function DoubleEliminationView(props){
 DoubleEliminationView.defaultProps={
     strokeWidth:2,
 }
+
+const sections=[
+
+];
