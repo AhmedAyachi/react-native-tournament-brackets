@@ -15,17 +15,17 @@ import ScreenContainer from '../../shared/components/organisms/ScreenContainer';
 function HomeScreen({ navigation }) {
   return (
     <ScreenContainer>
-      <DoubleEliminationView
-        data={data.double}
-        // stroke="#f067a0"
-        // strokeWidth={1}
-        // renderMatch={MatchTestView}
-      />
-      {/* <SingleEliminationView
-                data={data.single}
-                stroke="black"
-                strokeWidth={2}
+      {/* <DoubleEliminationView
+                data={data.double}
+                //stroke="#f067a0"
+                //strokeWidth={1}
+                //renderMatch={MatchTestView}
             /> */}
+      <SingleEliminationView
+        data={data.single}
+        stroke="black"
+        strokeWidth={2}
+      />
     </ScreenContainer>
   );
 }

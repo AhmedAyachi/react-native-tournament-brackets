@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { rem } from '../index.style';
 
 const css = StyleSheet.create({
   col0: {
@@ -7,7 +8,7 @@ const css = StyleSheet.create({
   },
   col1: {
     alignItems: 'flex-start',
-    height: '115.15%',
+    height: '115%',
     justifyContent: 'flex-start',
   },
   container: {
@@ -19,6 +20,8 @@ const css = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  finalconnectorheight: 0.65 * rem,
+  strokewidthfrac: 1 / (89 * rem),
 });
 
 export default css;

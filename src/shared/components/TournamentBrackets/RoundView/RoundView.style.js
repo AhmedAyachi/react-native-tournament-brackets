@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { rem } from 'css';
+import { rem } from '../index.style';
 
 const css = StyleSheet.create({
   matchcontainer: {
@@ -10,13 +10,10 @@ const css = StyleSheet.create({
   roundview: {
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginHorizontal: 0.15 * rem,
   },
   row0: {
-    alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.15)',
     borderRadius: 0.2 * rem,
-    justifyContent: 'center',
     overflow: 'hidden',
     paddingVertical: 0.5 * rem,
     width: '100%',

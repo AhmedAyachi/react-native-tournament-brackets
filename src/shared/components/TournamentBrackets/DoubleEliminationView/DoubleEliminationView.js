@@ -1,3 +1,5 @@
+/* eslint-disable mdx/no-unused-expressions */
+/* eslint-disable indent */
 import React, { useRef, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import css from './DoubleEliminationView.style';
@@ -13,7 +15,6 @@ export default function DoubleEliminationView(props) {
   const refs = {
     col1: useRef(null),
   };
-
   return (
     <ScrollView
       style={[css.doubleeliminationView, props.style]}
@@ -21,47 +22,37 @@ export default function DoubleEliminationView(props) {
     >
       <ScrollView contentContainerStyle={css.container} horizontal={true}>
         <View style={css.col0}>
-          <SectionView
-            {...props}
-            data={championship}
-            onPlayMatch={(params) => {
-              const { round } = params;
-              if (onPlayMatch) {
-                round.isChampionship = true;
-                onPlayMatch(params);
+          {[championship, elimination].map((item, i) => (
+            <SectionView
+              {...props}
+              key={i}
+              data={{ item }}
+              onPlayMatch={
+                onPlayMatch &&
+                ((params) => {
+                  params.round.isChampionship = !i;
+                  onPlayMatch(params);
+                })
               }
-            }}
-            onHeaderLayout={(params) => {
-              const col1El = refs.col1.current;
-              if (col1El) {
-                const { height } = params.nativeEvent.layout;
-                col1El.setNativeProps({ style: { paddingTop: height } });
+              onHeaderLayout={
+                i
+                  ? null
+                  : (params) => {
+                      const col1El = refs.col1.current;
+                      if (col1El) {
+                        const { height } = params.nativeEvent.layout;
+                        col1El.setNativeProps({
+                          style: { paddingTop: height },
+                        });
+                      }
+                    }
               }
-            }}
-            onRoundOffset={({ pageYs }) => {
-              lastmatchYs.push(pageYs[0]);
-              if (lastmatchYs.length === 2) {
-                setGrandFinalShown(true);
-              }
-            }}
-          />
-          <SectionView
-            {...props}
-            data={elimination}
-            onPlayMatch={
-              onPlayMatch &&
-              ((params) => {
-                params.round.isChampionship = false;
-                onPlayMatch(params);
-              })
-            }
-            onRoundOffset={({ pageYs }) => {
-              lastmatchYs.push(pageYs[0]);
-              if (lastmatchYs.length === 2) {
-                setGrandFinalShown(true);
-              }
-            }}
-          />
+              onRoundOffset={({ pageYs }) => {
+                lastmatchYs.push(pageYs[0]);
+                lastmatchYs.length === 2 && setGrandFinalShown(true);
+              }}
+            />
+          ))}
         </View>
         <View ref={refs.col1} style={css.col1}>
           {grandfinalshown && (
@@ -70,11 +61,12 @@ export default function DoubleEliminationView(props) {
               renderMatch={props.renderMatch}
               connected={true}
               connectorStyle={{
-                height: lastmatchYs[1] - lastmatchYs[0],
+                height:
+                  css.finalconnectorheight + (lastmatchYs[1] - lastmatchYs[0]),
                 strokeWidth:
-                  ((lastmatchYs[1] - lastmatchYs[0]) *
-                    (0.15 + props.strokeWidth * 0.15)) /
-                  824,
+                  css.strokewidthfrac *
+                  (lastmatchYs[1] - lastmatchYs[0]) *
+                  (0.15 + props.strokeWidth * 0.15),
                 stroke: props.stroke,
               }}
               onPlayMatch={

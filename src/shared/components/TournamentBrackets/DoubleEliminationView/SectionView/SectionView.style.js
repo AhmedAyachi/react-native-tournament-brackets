@@ -2,9 +2,6 @@ import { StyleSheet } from 'react-native';
 import { rem } from '../../index.style';
 
 const css = StyleSheet.create({
-  round: {
-    marginHorizontal: 0.2 * rem,
-  },
   sectionview: {
     flex: 1,
     width: '100%',

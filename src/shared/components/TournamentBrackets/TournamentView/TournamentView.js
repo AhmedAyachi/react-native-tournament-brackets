@@ -22,7 +22,7 @@ export default function TournamentView(props) {
           return (
             <RoundView
               key={i}
-              style={props.roundStyle}
+              style={css.roundview}
               round={round}
               connected={i && connected}
               renderMatch={props.renderMatch}
