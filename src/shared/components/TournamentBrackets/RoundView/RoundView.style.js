@@ -1,17 +1,14 @@
 import {StyleSheet} from "react-native";
-import {rem} from "css";
+import {rem} from "../index.style";
 
 
 const css=StyleSheet.create({
     roundview:{
         justifyContent:"flex-start",
         alignItems:"center",
-        marginHorizontal:0.15*rem,
     },
     row0:{
         width:"100%",
-        justifyContent:"center",
-        alignItems:"center",
         paddingVertical:0.5*rem,
         borderRadius:0.2*rem,
         backgroundColor:"rgba(0,0,0,0.15)",

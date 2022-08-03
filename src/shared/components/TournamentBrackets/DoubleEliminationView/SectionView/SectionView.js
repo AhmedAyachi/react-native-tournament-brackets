@@ -5,17 +5,11 @@ import TournamentView from "../../TournamentView/TournamentView";
 
 
 export default function SectionView(props){
-    const {data}=props,{title}=data;
+    const {title}=props.data;
     return (
         <View style={css.sectionview}>
-            {title&&
-                <Text style={css.title} onLayout={props.onHeaderLayout}>{title}</Text>
-            }
-            <TournamentView
-                {...props}
-                style={{backgroundColor:css.sectionview.backgroundColor}}
-                roundStyle={(title==="championship")&&css.round}
-            />
+            <Text style={css.title} onLayout={props.onHeaderLayout}>{title}</Text>
+            <TournamentView {...props} style={{backgroundColor:css.sectionview.backgroundColor}}/>
         </View>
     )
 }

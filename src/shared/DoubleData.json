@@ -7,49 +7,41 @@
                     {
                         "id":"m0",
                         "date":"01/07/2022",
-                        "participantIds":["p0","p1"],
                         "winnerId":"p1"
                     },
                     {
                         "id":"m1",
                         "date":"02/07/2021",
-                        "participantIds":["p2","p3"],
                         "winnerId":"p3"
                     },
                     {
                         "id":"m2",
                         "date":"03/07/2021",
-                        "participantIds":["p4","p5"],
                         "winnerId":"p5"
                     },
                     {
                         "id":"m3",
                         "date":"04/07/2021",
-                        "participantIds":["p6","p7"],
                         "winnerId":"p7"
                     },
                     {
                         "id":"m4",
                         "date":"05/07/2021",
-                        "participantIds":["p8","p9"],
                         "winnerId":"p9"
                     },
                     {
                         "id":"m5",
                         "date":"06/07/2021",
-                        "participantIds":["p10","p11"],
                         "winnerId":"p11"
                     },
                     {
                         "id":"m6",
                         "date":"07/07/2021",
-                        "participantIds":["p12","p13"],
                         "winnerId":"p12"
                     },
                     {
                         "id":"m7",
                         "date":"08/07/2021",
-                        "participantIds":["p14","p15"],
                         "winnerId":"p15"
                     }
                 ]

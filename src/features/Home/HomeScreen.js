@@ -11,17 +11,17 @@ import {data} from "shared";
 function HomeScreen({navigation}){
     return (
         <ScreenContainer>
-            <DoubleEliminationView
+            {/* <DoubleEliminationView
                 data={data.double}
                 //stroke="#f067a0"
                 //strokeWidth={1}
                 //renderMatch={MatchTestView}
-            />
-            {/* <SingleEliminationView
+            /> */}
+            <SingleEliminationView
                 data={data.single}
                 stroke="black"
                 strokeWidth={2}
-            /> */}
+            />
         </ScreenContainer>
     );
 }

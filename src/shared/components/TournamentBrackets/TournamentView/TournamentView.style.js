@@ -1,4 +1,5 @@
 import {StyleSheet} from "react-native";
+import {rem} from "../index.style";
 
 
 const css=StyleSheet.create({
@@ -6,6 +7,9 @@ const css=StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-start",
         alignItems:"flex-start",
+    },
+    roundview:{
+        marginHorizontal:0.15*rem,
     },
 });
 

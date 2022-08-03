@@ -13,9 +13,6 @@ const css=StyleSheet.create({
         textTransform:"capitalize",
         padding:1*rem,
     },
-    round:{
-        marginHorizontal:0.2*rem,
-    }
 });
 
 export default css;

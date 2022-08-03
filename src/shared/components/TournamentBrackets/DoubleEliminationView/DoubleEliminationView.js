@@ -14,14 +14,13 @@ export default function DoubleEliminationView(props){
     const refs={
         col1:useRef(null),
     };
-    
     return (
         <ScrollView style={[css.doubleeliminationView,props.style]} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>
                 <View style={css.col0}>
                     {[championship,elimination].map((item,i)=>(
                         <SectionView {...props}
-                            key={i} data={item}
+                            key={i} data={{item}}
                             onPlayMatch={onPlayMatch&&((params)=>{
                                 params.round.isChampionship=!Boolean(i);
                                 onPlayMatch(params);
@@ -47,8 +46,8 @@ export default function DoubleEliminationView(props){
                             renderMatch={props.renderMatch}
                             connected={true}
                             connectorStyle={{
-                                height:lastmatchYs[1]-lastmatchYs[0],
-                                strokeWidth:(lastmatchYs[1]-lastmatchYs[0])*(0.15+props.strokeWidth*0.15)/824,
+                                height:css.finalconnectorheight+(lastmatchYs[1]-lastmatchYs[0]),
+                                strokeWidth:css.strokewidthfrac*(lastmatchYs[1]-lastmatchYs[0])*(0.15+props.strokeWidth*0.15),
                                 stroke:props.stroke,
                             }}
                             onPlayMatch={onPlayMatch&&((match)=>{
@@ -65,7 +64,3 @@ export default function DoubleEliminationView(props){
 DoubleEliminationView.defaultProps={
     strokeWidth:2,
 }
-
-const sections=[
-
-];

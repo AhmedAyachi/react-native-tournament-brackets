@@ -6,7 +6,7 @@ import * as H from "./Hooks";
 
 
 export default function SingleEliminationView(props){
-    const tournament=H.useTournament(props.data);
+    const tournament=H.useTournament({...props.data});
     return (
         <ScrollView style={[css.singleeliminationview,props.style]} contentContainerStyle={css.container}>
             <ScrollView contentContainerStyle={css.container} horizontal={true}>

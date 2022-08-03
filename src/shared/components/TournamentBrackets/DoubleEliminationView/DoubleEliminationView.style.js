@@ -1,4 +1,5 @@
 import {StyleSheet} from "react-native";
+import {rem} from "../index.style";
 
 
 const css=StyleSheet.create({
@@ -16,10 +17,12 @@ const css=StyleSheet.create({
         alignItems:"flex-end",
     },
     col1:{
-        height:"115.15%",
+        height:"115%",
         justifyContent:"flex-start",
         alignItems:"flex-start",
     },
+    finalconnectorheight:0.65*rem,
+    strokewidthfrac:1/(89*rem),
 });
 
 export default css;
