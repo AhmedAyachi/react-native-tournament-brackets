@@ -1,6 +1,5 @@
 /* eslint-disable mdx/no-unused-expressions */
 /* eslint-disable indent */
-/* eslint-disable no-param-reassign */
 export const useId = (startsWith) =>
   `${startsWith || ''}_${Math.random().toString(36).slice(2)}`;
 
@@ -34,7 +33,6 @@ export const getChampionShipRounds = (data) => {
 
 export const setRoundData = (round, i, data) => {
   if (data) {
-    // let roundref=null;
     const { rounds } = data;
     if (Array.isArray(rounds) && rounds.length) {
       const roundref =
@@ -47,14 +45,6 @@ export const setRoundData = (round, i, data) => {
   round.index = i;
 };
 
-/* const getRoundRef=(i,roundrefs)=>{
-    let roundref=null;
-    if(Array.isArray(roundrefs)&&roundrefs.length){
-        roundref=roundrefs.find(({index})=>(typeof(index)==="number")&&(i===index))||roundrefs[i];
-    }
-    return roundref;
-} */
-
 export const getRoundMatches = ({ participantIds, matchrefs }) => {
   const length = Math.round(participantIds.length / 2),
     matches = new Array(length).fill(null).map(() => ({
@@ -65,7 +55,7 @@ export const getRoundMatches = ({ participantIds, matchrefs }) => {
     Array.isArray(matchrefs) &&
     matchrefs.length &&
     matchrefs.filter((matchref) => matchref && typeof matchref === 'object');
-  // Set participantIds order using elimination object
+  // Set participantIds order using user data object
   matchrefs && sortParticipantIds(participantIds, matchrefs);
   // Set matches participantIds property
   participantIds.forEach((loserId, i) => {
@@ -75,13 +65,14 @@ export const getRoundMatches = ({ participantIds, matchrefs }) => {
       participantIds.push(loserId);
     }
   });
-  // Set match extra data using user elimination object
+  // Set match extra data using user data object
   matchrefs &&
     matchrefs.forEach((matchref, i) => {
       const match = findTargetMatch(matchref, i, matches);
       if (match) {
-        delete matchref.participantIds;
+        const { id, participantIds } = match;
         Object.assign(match, matchref);
+        Object.assign(match, { id, participantIds });
       }
     });
   return matches;
@@ -146,9 +137,11 @@ export const setRoundsMatches = (data) => {
     if (round.title === undefined) {
       round.title = getRoundTitle(i, max);
     }
-    round.matches = (round.matches || []).map((match) =>
-      getMatchData(match, data),
-    );
+    const { matches } = round;
+    matches &&
+      matches.forEach((match) => {
+        setMatchParticipants(match, data.participants);
+      });
   });
 };
 
@@ -166,14 +159,14 @@ const getRoundTitle = (index, length) => {
   }
 };
 
-const getMatchData = (matchref, data) => {
-  const match = { ...matchref },
-    { participantIds } = matchref;
+const setMatchParticipants = (matchdata, participants) => {
+  const match = matchdata,
+    { participantIds } = matchdata;
   match.participants = participantIds
     ? participantIds.map(
         (participantId) =>
           participantId && {
-            ...data.participants.find(
+            ...participants.find(
               (participant) => participant.id === participantId,
             ),
           },
