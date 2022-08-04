@@ -20,7 +20,7 @@ export default function DoubleEliminationView(props){
                 <View style={css.col0}>
                     {[championship,elimination].map((item,i)=>(
                         <SectionView {...props}
-                            key={i} data={{item}}
+                            key={i} data={item}
                             onPlayMatch={onPlayMatch&&((params)=>{
                                 params.round.isChampionship=!Boolean(i);
                                 onPlayMatch(params);
