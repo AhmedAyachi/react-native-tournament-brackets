@@ -79,6 +79,7 @@ The target match, props:
 
 ### onPlayMatch
 A match-component-view-mounted callback
+
 **round**
 The match round object, props:
 - id : String
