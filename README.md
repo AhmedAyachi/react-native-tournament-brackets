@@ -23,12 +23,14 @@ An array of objects, each containing at least two properties **id** and **name**
 |Prop Name|Type|Description|
 |:-------:|:--:|:---------:|
 |rounds|**Round**[]|used to target each round matches|
+
 **Round**
 |Prop Name|Type|Description|
 |:-------:|:--:|:---------:|
 |index|Selector property|used to target rounds by index
 |title|String|sets the round header text
 |matches|**Match**[]|matches of the current round 
+
 **Match**
 An object used to extend the match data object.
 This object has two types of properties:
