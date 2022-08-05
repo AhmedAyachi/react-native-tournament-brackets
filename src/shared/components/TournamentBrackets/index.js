@@ -25,7 +25,8 @@ export const setRoundData=(round,i,data)=>{
     if(data){
         const {rounds}=data;
         if(Array.isArray(rounds)&&rounds.length){
-            const roundref=rounds.find(({index})=>(typeof(index)==="number")&&(i===index))||rounds[i];
+            const roundi=rounds[i];
+            const roundref=(roundi&&(roundi.index===undefined))?roundi:rounds.find(({index})=>(typeof(index)==="number")&&(i===index));
             roundref&&Object.assign(round,roundref);
         }
     }
