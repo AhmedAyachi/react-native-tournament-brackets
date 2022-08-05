@@ -71,6 +71,7 @@ This will force the participants of the match with such index to be those with s
 
 ### renderMatch
 A react native function component whose props include :
+
 **match**
 The target match, props:
 - id
