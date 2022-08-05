@@ -13,7 +13,8 @@ Both components listed above have the exact same props:
 |renderMatch|React Component|Optional, displays a custom MatchView Component|
 |stroke|String|Optional, sets the matchs views connectors color, default: orange|
 |strokeWidth|Number|Optional, sets the matchs views connectors width, default: 2|
-### Data
+|onPlayMatch|Function|A match-component-view-mounted callback
+### data
 An object containing at least one property **participants**,
 An array of objects, each containing at least two properties **id** and **name**.
 > Minimum requirements to get to the brackets view
@@ -67,3 +68,21 @@ This will force the participants of the match with such index to be those with s
 |championship|SingleEliminationDataOBject|used for the championship brackets (no praticipants property needed)|
 |elimination|SingleEliminationDataOBject| same as championship
 |final|{"match":**Match**}|sets the grand final match data
+
+### renderMatch
+A react native function component whose props include :
+**match**
+The target match, props:
+- id
+- index
+- participants[{id,name,isWinner}]
+
+### onPlayMatch
+A match-component-view-mounted callback
+**round**
+The match round object, props:
+- id : String
+- index : Number
+- matches : **match**[]
+- isChampionship : Boolean
+- isFinal : ***true*** | ***undefined***
