@@ -23,8 +23,8 @@ function HomeScreen({ navigation }) {
             /> */}
       <SingleEliminationView
         data={data.single}
-        stroke="black"
-        strokeWidth={2}
+        /* stroke="black"
+                strokeWidth={2} */
       />
     </ScreenContainer>
   );

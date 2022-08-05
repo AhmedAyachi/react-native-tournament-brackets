@@ -1,5 +1,6 @@
 /* eslint-disable mdx/no-unused-expressions */
 /* eslint-disable indent */
+/* eslint-disable no-shadow */
 export const useId = (startsWith) =>
   `${startsWith || ''}_${Math.random().toString(36).slice(2)}`;
 
@@ -35,9 +36,13 @@ export const setRoundData = (round, i, data) => {
   if (data) {
     const { rounds } = data;
     if (Array.isArray(rounds) && rounds.length) {
+      const roundi = rounds[i];
       const roundref =
-        rounds.find(({ index }) => typeof index === 'number' && i === index) ||
-        rounds[i];
+        roundi && roundi.index === undefined
+          ? roundi
+          : rounds.find(
+              ({ index }) => typeof index === 'number' && i === index,
+            );
       roundref && Object.assign(round, roundref);
     }
   }

@@ -26,7 +26,7 @@ export default function DoubleEliminationView(props) {
             <SectionView
               {...props}
               key={i}
-              data={{ item }}
+              data={item}
               onPlayMatch={
                 onPlayMatch &&
                 ((params) => {
